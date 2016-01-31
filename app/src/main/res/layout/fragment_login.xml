@@ -12,7 +12,8 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/view">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,5 +22,17 @@
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent"/>
     </android.support.design.widget.TextInputLayout>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/passd"
+        android:hint="@string/hntpass"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
+        android:layout_below="@+id/view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
