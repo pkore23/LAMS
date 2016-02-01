@@ -17,8 +17,7 @@
             android:layout_height="@dimen/action_bar_hieght"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:title=""
-            android:logo="@mipmap/ic_launcher">
+            android:title="">
         <include layout="@layout/titlebarlogin" />
         </android.support.v7.widget.Toolbar>
 

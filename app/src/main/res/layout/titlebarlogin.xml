@@ -2,11 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="match_parent"
     android:theme="@style/Base.TextAppearance.AppCompat.Title">
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
+        android:id="@+id/logobar"
+        android:src="@drawable/ic_launcher"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/logotxt"
+        android:layout_toRightOf="@id/logobar"
         android:layout_centerVertical="true"
         android:src="@drawable/title_txt"/>
 </RelativeLayout>

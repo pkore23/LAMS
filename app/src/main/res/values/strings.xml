@@ -3,5 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="hntuid">User Id</string>
     <string name="hntpass">Password</string>
-    <string name="app_title">Lecture &amp; Attenance \n Management System</string>
+    <string name="loginbtn">Login</string>
+    <string name="trouble_login">Trouble logging in? Click here.</string>
 </resources>
