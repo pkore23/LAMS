@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -48,7 +49,9 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
             u.requestFocus();
         }
         else {
-
+            Toast.makeText(getContext(),"Login Attempt exceeded.",Toast.LENGTH_LONG).show();
+            getActivity().finish();
+            System.exit(0);
         }
     }
 
