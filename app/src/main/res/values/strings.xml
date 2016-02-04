@@ -10,4 +10,11 @@
     <string name="new_lec">New Lecture</string>
     <string name="stud_attd_rep">Attendance Report: Student wise</string>
     <string name="subj_attd_rep">Attendance Report: Subject wise</string>
+    <string name="mentor_stud">Mentoring students</string>
+    <string name="acc_sett">Profile</string>
+    <string name="new_std">New user: Student</string>
+    <string name="new_stf">New user: Staff</string>
+    <string name="mod_acc">Modify User</string>
+    <string name="user_rep">User List</string>
+    <string name="title_activity_options_admin">Welcome, Admin</string>
 </resources>
