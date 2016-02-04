@@ -7,7 +7,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.beproject.lams.OptionsActivityFragment"
-    tools:showIn="@layout/activity_options">
+    tools:showIn="@layout/activity_options"
+    android:background="@color/colorBg">
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView2"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/colorAccent"/>
 </RelativeLayout>

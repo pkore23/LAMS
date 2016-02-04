@@ -7,4 +7,7 @@
     <string name="loginbtn">Login</string>
     <string name="trouble_login">Trouble logging in? Click here.</string>
     <string name="title_activity_options">Welcome, USER</string>
+    <string name="new_lec">New Lecture</string>
+    <string name="stud_attd_rep">Attendance Report: Student wise</string>
+    <string name="subj_attd_rep">Attendance Report: Subject wise</string>
 </resources>
