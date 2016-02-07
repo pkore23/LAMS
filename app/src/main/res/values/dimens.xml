@@ -4,4 +4,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="action_bar_hieght">150dp</dimen>
+    <dimen name="opt_card_height">100dp</dimen>
+    <dimen name="opt_card_width">145dp</dimen>
+    <dimen name="opt_card_margin">10dp</dimen>
+    <dimen name="trial">?android:attr/maxWidth</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

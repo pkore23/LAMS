@@ -17,15 +17,6 @@ public class OptionsActivity extends AppCompatActivity implements DialogInterfac
         setContentView(R.layout.activity_options);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -43,7 +34,9 @@ public class OptionsActivity extends AppCompatActivity implements DialogInterfac
     public void onClick(DialogInterface dialog, int which) {
         if(which==DialogInterface.BUTTON_POSITIVE){
             this.finish();
+            System.gc();
             System.exit(0);
         }
     }
+
 }

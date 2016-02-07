@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,8 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     View rootView;
     Button b;
     EditText p,u;
-    private String DUMMY_CREDENTIALS[] = {"admin:admin"};
+    Intent i;
+    private String DUMMY_CREDENTIALS[] = {"admin:admin:0","staff:staff:1"};
     private int loginAttempt;
     public LoginActivityFragment() {
     }
@@ -38,7 +40,6 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(attemptLogin()) {
-            Intent i = new Intent(getContext(), OptionsActivity.class);
             startActivity(i);
         }
         else if(loginAttempt<3){
@@ -59,6 +60,19 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
         for(String credentials:DUMMY_CREDENTIALS){
             String cr[] = credentials.split(":");
             if((u.getText().toString()).equals(cr[0])){
+                try {
+                    switch (Integer.parseInt(cr[2])) {
+                        case 0:
+                            i = new Intent(getContext(), OptionsAdmin.class);
+                            break;
+                        case 1:
+                            i = new Intent(getContext(), OptionsActivity.class);
+                            break;
+                    }
+                }
+                catch(NumberFormatException ne){
+                    Log.e("LOGINACTIviTY_NUMtype", "Failed to launch activity: numbr format exception");
+                }
                 return p.getText().toString().equals(cr[1]);
             }
         }

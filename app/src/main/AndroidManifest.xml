@@ -26,7 +26,21 @@
         <activity
             android:name=".OptionsAdmin"
             android:label="@string/title_activity_options_admin"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".OptionsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".StudentReport"
+            android:label="@string/title_activity_student_report"
+            android:parentActivityName=".OptionsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beproject.lams.OptionsActivity" />
+        </activity>
     </application>
 
 </manifest>

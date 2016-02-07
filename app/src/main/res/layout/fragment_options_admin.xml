@@ -1,28 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.beproject.lams.OptionsActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.beproject.lams.OptionsActivityFragment"
+    tools:showIn="@layout/activity_options_admin"
+    android:background="@color/colorBg">
 
-    <android.support.design.widget.AppBarLayout
+    <TextView
         android:layout_width="match_parent"
+        android:layout_height="@dimen/opt_card_height"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/user_rep"
+        android:id="@+id/usrRep"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/colorAccent"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_weight="1"
+        android:id="@+id/div1"
+        android:layout_below="@+id/usrRep"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    <TextView
+        android:layout_width="@dimen/opt_card_width"
+        android:layout_height="@dimen/opt_card_height"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/new_std"
+        android:id="@+id/newStd"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/opt_card_margin"/>
+    </RelativeLayout>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/title_activity_options"
-            app:logo="@drawable/ic_action_name"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/div2"
+        android:layout_weight="1"
+        android:layout_toRightOf="@id/div1"
+        android:layout_below="@+id/usrRep"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="10dp">
+    <TextView
+        android:layout_width="@dimen/opt_card_width"
+        android:layout_height="@dimen/opt_card_height"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/new_stf"
+        android:id="@+id/newStf"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/opt_card_margin"/>
+        </RelativeLayout>
 
-    </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/opt_card_height"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/mentor_stud"
+        android:id="@+id/mentor"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/opt_card_margin"
+        android:layout_below="@+id/div1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <include layout="@layout/content_options" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/opt_card_height"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/acc_sett"
+        android:id="@+id/acc_sett"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/opt_card_margin"
+        android:layout_below="@+id/mentor"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>
