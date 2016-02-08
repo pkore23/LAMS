@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:id="@+id/listreport"
         android:layout_height="wrap_content"
-        android:name="android.app.ListFragment"
+        android:name="com.beproject.lams.ItemFragment"
         tools:layout="@layout/fragment_item_list" />
 
 </android.support.v4.widget.NestedScrollView>

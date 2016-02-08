@@ -32,7 +32,7 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(String item) {
+    public static void addItem(String item) {
         ITEMS.add(item);
         ITEM_MAP.put("ID."+item, item);
     }
