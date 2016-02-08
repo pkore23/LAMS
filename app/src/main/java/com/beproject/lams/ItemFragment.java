@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.beproject.lams.dummy.DummyContent;
-import com.beproject.lams.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
@@ -104,6 +103,6 @@ public class ItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(String item);
     }
 }

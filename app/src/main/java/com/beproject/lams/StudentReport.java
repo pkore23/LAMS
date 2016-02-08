@@ -6,8 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
-public class StudentReport extends AppCompatActivity {
+import com.beproject.lams.dummy.DummyContent;
+
+public class StudentReport extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,5 +19,10 @@ public class StudentReport extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onListFragmentInteraction(String item) {
+        Toast.makeText(this,"Clicked on list",Toast.LENGTH_SHORT).show();
     }
 }
