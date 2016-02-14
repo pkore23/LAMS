@@ -34,7 +34,7 @@ public class OptionsActivityFragment extends Fragment {
         rep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), StudentReport.class);
+                Intent i = new Intent(getContext(), StudentListActivity.class);
                 startActivity(i);
             }
         });

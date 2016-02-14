@@ -41,6 +41,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.beproject.lams.OptionsActivity" />
         </activity>
+        <activity
+            android:name=".StudentListActivity"
+            android:label="@string/title_student_list"
+            android:parentActivityName=".OptionsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beproject.lams.OptionsActivity" />
+        </activity>
+        <activity
+            android:name=".StudentDetailActivity"
+            android:label="@string/title_student_detail"
+            android:parentActivityName=".StudentListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beproject.lams.StudentListActivity" />
+        </activity>
     </application>
 
 </manifest>
