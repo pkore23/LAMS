@@ -20,19 +20,5 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    @Nullable
-    @Override
-    public Intent getParentActivityIntent() {
-        Intent pI = getIntent();
-        String classn = pI.getStringExtra("parent_act");
-        Intent i = null;
-        try {
-            i =new Intent(this,Class.forName(classn));
-        } catch (ClassNotFoundException e) {
-            Log.e("ParentSett","Unable to set parent activity");
-            e.printStackTrace();
-            return super.getParentActivityIntent();
-        }
-        return i;
-    }
+
 }

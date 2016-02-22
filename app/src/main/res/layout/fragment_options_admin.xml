@@ -13,81 +13,59 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/opt_card_height"
+        android:elevation="2dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/user_rep"
-        android:id="@+id/usrRep"
+        android:text="@string/mod_acc"
+        android:id="@+id/newLec"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@color/colorAccent"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/div1"
-        android:layout_below="@+id/usrRep"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+
     <TextView
         android:layout_width="@dimen/opt_card_width"
         android:layout_height="@dimen/opt_card_height"
+        android:elevation="2dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/new_std"
-        android:id="@+id/newStd"
+        android:id="@+id/studRep"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
         android:gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="@dimen/opt_card_margin"/>
-    </RelativeLayout>
+        android:layout_marginTop="@dimen/opt_card_margin"
+        android:layout_below="@+id/newLec"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/div2"
-        android:layout_weight="1"
-        android:layout_toRightOf="@id/div1"
-        android:layout_below="@+id/usrRep"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="10dp">
     <TextView
         android:layout_width="@dimen/opt_card_width"
         android:layout_height="@dimen/opt_card_height"
+        android:elevation="2dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/new_stf"
-        android:id="@+id/newStf"
+        android:id="@+id/subjRep"
+        android:layout_toRightOf="@+id/studRep"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
         android:gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="@dimen/opt_card_margin"/>
-        </RelativeLayout>
+        android:layout_marginTop="@dimen/opt_card_margin"
+        android:layout_marginLeft="@dimen/opt_card_margin"
+        android:layout_below="@+id/newLec"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/opt_card_height"
+        android:elevation="2dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/mentor_stud"
+        android:text="@string/acc_sett"
         android:id="@+id/mentor"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
         android:gravity="center_horizontal|center_vertical"
         android:layout_marginTop="@dimen/opt_card_margin"
-        android:layout_below="@+id/div1"
+        android:layout_below="@+id/studRep"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/opt_card_height"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/acc_sett"
-        android:id="@+id/acc_sett"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorAccent"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="@dimen/opt_card_margin"
-        android:layout_below="@+id/mentor"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
 
 </RelativeLayout>

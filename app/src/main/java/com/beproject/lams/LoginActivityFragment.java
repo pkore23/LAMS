@@ -1,6 +1,8 @@
 package com.beproject.lams;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        i = new Intent(getContext(),OptionsActivity.class);
         if(attemptLogin()) {
             startActivity(i);
         }
@@ -61,14 +64,11 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
             String cr[] = credentials.split(":");
             if((u.getText().toString()).equals(cr[0])){
                 try {
-                    switch (Integer.parseInt(cr[2])) {
-                        case 0:
-                            i = new Intent(getContext(), OptionsAdmin.class);
-                            break;
-                        case 1:
-                            i = new Intent(getContext(), OptionsActivity.class);
-                            break;
-                    }
+                    SharedPreferences prefs= getActivity().getPreferences(Context.BIND_AUTO_CREATE);
+                    SharedPreferences.Editor e1 = prefs.edit();
+                    e1.putInt("UserType",Integer.parseInt(cr[2]));
+                    e1.apply();
+                    e1.commit();
                 }
                 catch(NumberFormatException ne){
                     Log.e("LOGINACTIviTY_NUMtype", "Failed to launch activity: numbr format exception");

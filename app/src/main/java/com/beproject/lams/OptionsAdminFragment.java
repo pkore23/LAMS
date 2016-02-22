@@ -21,7 +21,7 @@ public class OptionsAdminFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_options_admin, container, false);
-        tv = (TextView) rootView.findViewById(R.id.acc_sett);
+/*        tv = (TextView) rootView.findViewById(R.id.acc_sett);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,7 +29,7 @@ public class OptionsAdminFragment extends Fragment {
                 i.putExtra("parent_act","OptionsAdmin");
                 startActivity(i);
             }
-        });
+        });*/
         return rootView;
     }
 }

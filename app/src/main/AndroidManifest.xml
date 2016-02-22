@@ -31,16 +31,12 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".OptionsActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".StudentReport"
-            android:label="@string/title_activity_student_report"
-            android:parentActivityName=".OptionsActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.beproject.lams.OptionsActivity" />
         </activity>
+
         <activity
             android:name=".StudentListActivity"
             android:label="@string/title_student_list"
@@ -50,6 +46,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.beproject.lams.OptionsActivity" />
         </activity>
+
         <activity
             android:name=".StudentDetailActivity"
             android:label="@string/title_student_detail"
