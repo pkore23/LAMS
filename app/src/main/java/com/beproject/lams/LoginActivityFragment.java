@@ -41,7 +41,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        i = new Intent(getContext(),OptionsActivity.class);
+        i = new Intent(getContext(),UserActivity.class);
         if(attemptLogin()) {
             startActivity(i);
         }
@@ -64,14 +64,12 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
             String cr[] = credentials.split(":");
             if((u.getText().toString()).equals(cr[0])){
                 try {
-                    SharedPreferences prefs= getActivity().getPreferences(Context.BIND_AUTO_CREATE);
-                    SharedPreferences.Editor e1 = prefs.edit();
-                    e1.putInt("UserType",Integer.parseInt(cr[2]));
-                    e1.apply();
-                    e1.commit();
+                    SharedPreferences prefs= getActivity().getSharedPreferences("com.beproject.lams",Context.MODE_PRIVATE);
+                    prefs.edit().putInt("UserType",Integer.parseInt(cr[2])).commit();
+                    return false;
                 }
-                catch(NumberFormatException ne){
-                    Log.e("LOGINACTIviTY_NUMtype", "Failed to launch activity: numbr format exception");
+                catch(Exception e){
+                    Log.e("LOGIN_ACTIVITY","Unable to launch: "+e.getLocalizedMessage());
                 }
                 return p.getText().toString().equals(cr[1]);
             }
