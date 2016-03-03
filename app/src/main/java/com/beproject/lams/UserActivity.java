@@ -1,8 +1,14 @@
 package com.beproject.lams;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.internal.NavigationSubMenu;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +22,7 @@ import android.view.MenuItem;
 public class UserActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Menu navMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +36,39 @@ public class UserActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+        NavigationView nv = (NavigationView) drawer.findViewById(R.id.nav_view);
+        navMenu = nv.getMenu();
+        setNavMenu();
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void setNavMenu()
+    {
+        MenuItem m1 = navMenu.getItem(0);
+        MenuItem m2 = navMenu.getItem(1);
+        MenuItem m3 = navMenu.getItem(2);
+        MenuItem m4 = navMenu.getItem(3);
+        SharedPreferences prefs= getSharedPreferences("com.beproject.lams", Context.MODE_PRIVATE);
+        int UserType = prefs.getInt("UserType",-1);
+        switch(UserType){
+            default:
+            case -1: m1.setTitle("Error").setIcon(R.drawable.ic_warning);
+                m2.setTitle("Error").setIcon(R.drawable.ic_warning);
+                m3.setTitle("Error").setIcon(R.drawable.ic_warning);
+                m4.setTitle("Error").setIcon(R.drawable.ic_warning);
+                navMenu.removeGroup(R.id.adminRights);
+                break;
+            case 1: navMenu.removeGroup(R.id.adminRights);
+            case 0: m1.setTitle(R.string.new_lec).setIcon(R.drawable.ic_new_lec);
+                m2.setTitle(R.string.attd_rep_std).setIcon(R.drawable.ic_action_name2);
+                m3.setTitle(R.string.attd_rep_sub).setIcon(R.drawable.ic_action_name2);
+                m4.setTitle(R.string.mentor_stud).setIcon(R.drawable.ic_action_name3);
+                break;
+        }
+
     }
 
     @Override
@@ -41,7 +77,17 @@ public class UserActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.exit)
+                    .setMessage(R.string.exit_msg)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No",null)
+                    .show();
         }
     }
 
@@ -73,13 +119,13 @@ public class UserActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_first) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_second) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_third) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_fourth) {
 
         } else if (id == R.id.nav_share) {
 

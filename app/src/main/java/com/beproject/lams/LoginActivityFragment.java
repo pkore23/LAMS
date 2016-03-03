@@ -3,6 +3,8 @@ package com.beproject.lams;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.internal.NavigationMenu;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -66,7 +68,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
                 try {
                     SharedPreferences prefs= getActivity().getSharedPreferences("com.beproject.lams",Context.MODE_PRIVATE);
                     prefs.edit().putInt("UserType",Integer.parseInt(cr[2])).commit();
-                    return false;
+                    return true;
                 }
                 catch(Exception e){
                     Log.e("LOGIN_ACTIVITY","Unable to launch: "+e.getLocalizedMessage());
