@@ -31,11 +31,12 @@ public class UserActivity extends AppCompatActivity
     Menu navMenu;
     FragmentManager fragmentManager;
     Fragment content;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fragmentManager = getSupportFragmentManager();
@@ -43,6 +44,7 @@ public class UserActivity extends AppCompatActivity
         content = new EventFragment();
         ft.replace(R.id.user_container,content);
         ft.disallowAddToBackStack();
+        toolbar.setTitle(R.string.home);
         ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -130,28 +132,29 @@ public class UserActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        String id = (String) item.getTitle();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        if(item.getTitle().equals("Error")){
+        if(id.equals("Error")){
             content = new ErrorFragment();
         }
         else {
-            if (id == R.id.nav_home) {
+            if (id.equals(getString(R.string.home))) {
                 content = new EventFragment();
-            } else if (id == R.id.nav_first) {
+            } else if (id.equals(getString(R.string.new_lec))) {
+                content = new NewLecFragment();
+            } else if (id.equals(getString(R.string.attd_rep_std))) {
                 content = new ErrorFragment();
-            } else if (id == R.id.nav_second) {
+            } else if (id.equals(getString(R.string.attd_rep_std))) {
                 content = new ErrorFragment();
-            } else if (id == R.id.nav_third) {
+            } else if (id.equals(getString(R.string.mentor_stud))) {
                 content = new ErrorFragment();
-            } else if (id == R.id.nav_fourth) {
+            } else if (id.equals(getString(R.string.acc_sett))) {
                 content = new ErrorFragment();
-            } else if (id == R.id.nav_share) {
-                content = new ErrorFragment();
-            } else if (id == R.id.nav_send) {
+            } else if (id.equals(getString(R.string.about))) {
                 content = new ErrorFragment();
             }
         }
+        toolbar.setTitle(id);
         ft.replace(R.id.user_container,content);
         ft.disallowAddToBackStack();
         ft.commit();
