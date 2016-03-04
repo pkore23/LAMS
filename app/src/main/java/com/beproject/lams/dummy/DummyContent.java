@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
- * <p>
- *
+ * <p/>
+ * TODO: Replace all uses of this class before publishing your app.
  */
 public class DummyContent {
 
@@ -23,23 +23,12 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = 10;
+    private static final int COUNT = 25;
 
-    static String studRep[] = {"1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%",
-            "1:ABC:Subject 1=73%\nSubject 2=09%\nSubject 3=46%"};
     static {
         // Add some sample items.
-        for(String studenta:studRep){
-            String det[] = studenta.split(":");
-            addItem(new DummyItem(det[0],det[1],det[2]));
+        for (int i = 1; i <= COUNT; i++) {
+            addItem(createDummyItem(i));
         }
     }
 
@@ -48,6 +37,9 @@ public class DummyContent {
         ITEM_MAP.put(item.id, item);
     }
 
+    private static DummyItem createDummyItem(int position) {
+        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();

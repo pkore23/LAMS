@@ -15,12 +15,12 @@
     <string name="new_std" translatable="false">New user:\nStudent</string>
     <string name="new_stf" translatable="false">New user:\nStaff</string>
     <string name="exit" translatable="false">Sure to Exit?</string>
-    <string name="exit_msg" translatable="false">ouwillbe logged out.</string>
+    <string name="exit_msg" translatable="false">You will be logged out.</string>
 
     <string name="title_student_list" translatable="false">Students</string>
     <string name="title_student_detail" translatable="false">Student Detail</string>
 
-    <string name="hello_blank_fragment" translatable="false">Hello. Some error has occured. Please quit and retry.</string>
+    <string name="hello_blank_fragment" translatable="false">!!! {UNDER CONSTRUCTION} !!!</string>
     <string name="add_admin" translatable="false">Add admin</string>
     <string name="title_activity_user" translatable="false">Welcome, User</string>
 
@@ -35,4 +35,5 @@
     <string name="def_usr">User</string>
     <string name="edit_user">Edit User</string>
     <string name="about">About Us</string>
+    <string name="home">Home</string>
 </resources>
