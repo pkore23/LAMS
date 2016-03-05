@@ -37,4 +37,9 @@
     <string name="about">About Us</string>
     <string name="home">Home</string>
     <string name="under_construction"><![CDATA[!!! <UNDER CONSTRUCTION> !!!]]></string>
+    <string name="reg_user_name">New User Name</string>
+    <string name="chk_nm">Check availability</string>
+    <string name="reg_pass">New Password</string>
+    <string name="cfn_pass">Confirm password</string>
+    <string name="crete_lec">Create Lecture</string>
 </resources>

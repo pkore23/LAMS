@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.beproject.lams.EventFragment.OnListFragmentInteractionListener;
-import com.beproject.lams.dummy.DummyContent;
 import com.beproject.lams.dummy.DummyContent.DummyItem;
 
 import java.util.List;
