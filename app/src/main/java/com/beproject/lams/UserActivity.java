@@ -3,6 +3,7 @@ package com.beproject.lams;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.beproject.lams.dummy.DummyContent;
 
@@ -45,7 +47,8 @@ public class UserActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        //drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         NavigationView nv = (NavigationView) drawer.findViewById(R.id.nav_view);
         navMenu = nv.getMenu();
         setNavMenu();
@@ -159,13 +162,14 @@ public class UserActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        return;
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
         return;
+    }
+
+    @Override
+    public void onListFragmentInteraction(Cursor item) {
+        Toast.makeText(UserActivity.this, ""+item.getString(item.getColumnIndexOrThrow("event_header")), Toast.LENGTH_SHORT).show();
     }
 }

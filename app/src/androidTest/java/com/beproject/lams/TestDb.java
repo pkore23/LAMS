@@ -142,7 +142,7 @@ public class TestDb extends ApplicationTestCase<Application> {
         mContext.deleteDatabase(LamsDBHelper.DATABASE_NAME);
         db = new LamsDBHelper(
                 this.mContext).getWritableDatabase();
-        
+
     }
 
 }

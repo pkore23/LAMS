@@ -1,15 +1,21 @@
 package com.beproject.lams;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.beproject.lams.data.LamsDBHelper;
+import com.beproject.lams.data.LamsDataContract;
 import com.beproject.lams.dummy.DummyContent;
 import com.beproject.lams.dummy.DummyContent.DummyItem;
 
@@ -67,7 +73,29 @@ public class EventFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyEventRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            LamsDBHelper dbHelper = new LamsDBHelper(getContext());
+            Cursor c =null;
+            try {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put(LamsDataContract.Event.COLUMN_EVENT_HEADER, "Event 1");
+                db.insert(LamsDataContract.Event.TABLE_NAME,
+                        null,
+                        cv);
+                String columns[] = {LamsDataContract.Event.COLUMN_EVENT_HEADER};
+                c = db.query(LamsDataContract.Event.TABLE_NAME,
+                        columns,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+            }
+            catch (Exception e){
+                Log.e("EventFragment","Error retriving data for events");
+                e.printStackTrace();
+            }
+            recyclerView.setAdapter(new MyEventRecyclerViewAdapter(c, mListener));
         }
         return view;
     }
@@ -102,6 +130,6 @@ public class EventFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Cursor item);
     }
 }

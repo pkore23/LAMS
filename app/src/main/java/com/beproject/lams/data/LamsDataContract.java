@@ -17,6 +17,8 @@ public class LamsDataContract {
     public static final String PATH_SUBJECT = "subject";
     public static final String PATH_LECTURE = "lecture";
     public static final String PATH_STAFF = "staff";
+    public static final String PATH_EVENT = "event";
+
 
     //Class to define contents of student table
     public static final class Student implements BaseColumns{
@@ -127,6 +129,21 @@ public class LamsDataContract {
             }
 
         }
+
+    public static final class Event implements BaseColumns{
+
+        public static Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_EVENT).build();
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EVENT; //Directory type
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EVENT; //tem type
+        public static final String TABLE_NAME = "event"; //event table name
+
+        //columns
+        public static final String COLUMN_EVENT_HEADER = "event_header";
+
+        public static Uri buildEvent(String evh){
+            return CONTENT_URI.buildUpon().appendPath(evh).build();
+        }
+    }
 
 
 }
