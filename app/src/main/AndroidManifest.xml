@@ -24,6 +24,11 @@
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme" />
 
+        <provider
+            android:name=".data.LamsContentProvider"
+            android:authorities="com.beproject.lams"
+            android:enabled="true"
+            android:exported="false"></provider>
     </application>
 
 </manifest>

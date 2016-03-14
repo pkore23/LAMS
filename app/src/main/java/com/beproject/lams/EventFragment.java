@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 
 import com.beproject.lams.data.LamsDBHelper;
 import com.beproject.lams.data.LamsDataContract;
-import com.beproject.lams.dummy.DummyContent;
-import com.beproject.lams.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
@@ -83,19 +81,14 @@ public class EventFragment extends Fragment {
                         null,
                         cv);
                 String columns[] = {LamsDataContract.Event.COLUMN_EVENT_HEADER};
-                c = db.query(LamsDataContract.Event.TABLE_NAME,
-                        columns,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
+                db.insert(LamsDataContract.Event.TABLE_NAME,null,cv);
+                c = db.query(LamsDataContract.Event.TABLE_NAME,null,null,null,null,null,null);
             }
             catch (Exception e){
                 Log.e("EventFragment","Error retriving data for events");
                 e.printStackTrace();
             }
-            recyclerView.setAdapter(new MyEventRecyclerViewAdapter(c, mListener));
+            recyclerView.setAdapter(new MyListCursorAdapter(getContext(),c));
         }
         return view;
     }

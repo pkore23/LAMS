@@ -1,6 +1,7 @@
 package com.beproject.lams.data;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -142,6 +143,10 @@ public class LamsDataContract {
 
         public static Uri buildEvent(String evh){
             return CONTENT_URI.buildUpon().appendPath(evh).build();
+        }
+
+        public static Uri buildEvent(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI,id);
         }
     }
 
