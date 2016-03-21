@@ -149,6 +149,38 @@ public class LamsDataContract {
             return ContentUris.withAppendedId(CONTENT_URI,id);
         }
     }
+    
+    public static final class Lecture implements BaseColumns{
+        
+        public static Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LECTURE).build();
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_LECTURE; //Directory
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_LECTURE //Item type
+        public static final String TABLE_NAME = "lecture";
+        
+        //Columns
+        public static final String COLUMN_LEC_ID = "lec_id";
+        public static final String COLUMN_SUBJECT = "subject";
+        public static final String COLUMN_DATE = "date";
+        public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_STAFF = "staff";
+        public static final String COLUMN_ATTD = "attd_table";
+        
+        public static Uri buildLecture(String lecid){
+            return CONTENT_URI.buildUpon().appendPath(lec_id).build();
+        }
+        
+        public static Uri buildStaff(String staffid){
+            return CONTENT_URI.buildUpon().appendPath(staffid).build();
+        }
+        
+        public static Uri buildSubject(String subid){
+            return CONTENT_URI.buildUpon().appendPath(subid).build();
+        }
+        
+        public static Uri buildDate(String dt){
+            return CONTENT_URI.buildUpon().appendPath(dt).build();
+        }
+    }
 
 
 }
