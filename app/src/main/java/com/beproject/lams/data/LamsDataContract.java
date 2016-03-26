@@ -154,7 +154,7 @@ public class LamsDataContract {
         
         public static Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LECTURE).build();
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_LECTURE; //Directory
-        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_LECTURE //Item type
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_LECTURE; //Item type
         public static final String TABLE_NAME = "lecture";
         
         //Columns
@@ -166,7 +166,7 @@ public class LamsDataContract {
         public static final String COLUMN_ATTD = "attd_table";
         
         public static Uri buildLecture(String lecid){
-            return CONTENT_URI.buildUpon().appendPath(lec_id).build();
+            return CONTENT_URI.buildUpon().appendPath(lecid).build();
         }
         
         public static Uri buildStaff(String staffid){

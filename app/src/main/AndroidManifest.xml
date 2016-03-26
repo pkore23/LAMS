@@ -28,7 +28,8 @@
             android:name=".data.LamsContentProvider"
             android:authorities="com.beproject.lams"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false" />
+
     </application>
 
 </manifest>

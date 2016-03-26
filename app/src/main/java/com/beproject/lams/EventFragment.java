@@ -1,21 +1,27 @@
 package com.beproject.lams;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-import com.beproject.lams.data.LamsDBHelper;
+
 import com.beproject.lams.data.LamsDataContract;
+import com.beproject.lams.dummy.EventContent;
+import com.beproject.lams.dummy.EventContent.EventItem;
+import com.beproject.lams.dummy.EventContent;
+
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -23,13 +29,15 @@ import com.beproject.lams.data.LamsDataContract;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class EventFragment extends Fragment {
+public class EventFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private ProgressBar pb;
     private OnListFragmentInteractionListener mListener;
+    private static final int LOADER_ID = 0;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,6 +66,15 @@ public class EventFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    EventContent ec;
+    MyEventRecyclerViewAdapter mAdapter;
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
@@ -71,24 +88,9 @@ public class EventFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            LamsDBHelper dbHelper = new LamsDBHelper(getContext());
-            Cursor c =null;
-            try {
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues cv = new ContentValues();
-                cv.put(LamsDataContract.Event.COLUMN_EVENT_HEADER, "Event 1");
-                db.insert(LamsDataContract.Event.TABLE_NAME,
-                        null,
-                        cv);
-                String columns[] = {LamsDataContract.Event.COLUMN_EVENT_HEADER};
-                db.insert(LamsDataContract.Event.TABLE_NAME,null,cv);
-                c = db.query(LamsDataContract.Event.TABLE_NAME,null,null,null,null,null,null);
-            }
-            catch (Exception e){
-                Log.e("EventFragment","Error retriving data for events");
-                e.printStackTrace();
-            }
-            recyclerView.setAdapter(new MyListCursorAdapter(getContext(),c));
+            ec = null;
+            mAdapter = new MyEventRecyclerViewAdapter(ec.ITEMS, mListener);
+            recyclerView.setAdapter(mAdapter);
         }
         return view;
     }
@@ -111,6 +113,34 @@ public class EventFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        pb =new ProgressBar(getContext(),null,android.R.style.Widget_Material_ProgressBar);
+        pb.setIndeterminate(true);
+        pb.setForegroundGravity(View.TEXT_ALIGNMENT_CENTER);
+        pb.setVisibility(View.VISIBLE);
+        String[] mColumns = {LamsDataContract.Event.COLUMN_EVENT_HEADER};
+        return new CursorLoader(getActivity(),
+                LamsDataContract.Event.CONTENT_URI,
+                mColumns,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        ec = new EventContent(data);
+        mAdapter.swapItem(ec.ITEMS);
+        pb.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        ec = new EventContent(null);
+        mAdapter.swapItem(ec.ITEMS);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -121,8 +151,11 @@ public class EventFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
+
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Cursor item);
+        void onListFragmentInteraction(EventContent.EventItem item);
     }
+
 }

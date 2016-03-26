@@ -20,7 +20,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.beproject.lams.dummy.DummyContent;
+import com.beproject.lams.data.LamsDataContract;
+import com.beproject.lams.dummy.EventContent;
 
 public class UserActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener {
@@ -139,7 +140,7 @@ public class UserActivity extends AppCompatActivity
             if (id.equals(getString(R.string.home))) {
                 content = new EventFragment();
             } else if (id.equals(getString(R.string.new_lec))) {
-                content = new NewLecFragment();
+                content = new ErrorFragment();
             } else if (id.equals(getString(R.string.attd_rep_std))) {
                 content = new ErrorFragment();
             } else if (id.equals(getString(R.string.attd_rep_std))) {
@@ -168,8 +169,9 @@ public class UserActivity extends AppCompatActivity
         return;
     }
 
+
     @Override
-    public void onListFragmentInteraction(Cursor item) {
-        Toast.makeText(UserActivity.this, ""+item.getString(item.getColumnIndexOrThrow("event_header")), Toast.LENGTH_SHORT).show();
+    public void onListFragmentInteraction(EventContent.EventItem item) {
+
     }
 }

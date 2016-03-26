@@ -60,19 +60,19 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     }
 
     private boolean attemptLogin() {
-        for(String credentials:DUMMY_CREDENTIALS){
-            String cr[] = credentials.split(":");
-            if((u.getText().toString()).equals(cr[0])){
-                try {
-                    SharedPreferences prefs= getActivity().getSharedPreferences("com.beproject.lams",Context.MODE_PRIVATE);
-                    prefs.edit().putInt("UserType",Integer.parseInt(cr[2])).commit();
-                    return true;
-                }
-                catch(Exception e){
-                    Log.e("LOGIN_ACTIVITY","Unable to launch: "+e.getLocalizedMessage());
-                }
-                return p.getText().toString().equals(cr[1]);
-            }
+        MyHttpClient mLogin = new MyHttpClient();
+        String response = mLogin.doInBackground(u.getText().toString(),p.getText().toString());
+        if(response.contains("0")){
+            return true;
+        }
+        else if (response.contains("1")){
+            Snackbar.make(rootView,"Incorrect user name!",Snackbar.LENGTH_SHORT).show();
+        }
+        else if(response.contains("2")){
+            Snackbar.make(rootView,"Incorrect password!",Snackbar.LENGTH_SHORT).show();
+        }
+        else{
+            Snackbar.make(rootView,"Error communicating with server\nOr Malformed response.",Snackbar.LENGTH_SHORT).show();
         }
         return false;
     }
