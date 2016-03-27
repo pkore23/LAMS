@@ -1,6 +1,7 @@
 package com.beproject.lams.dummy;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.beproject.lams.data.LamsDataContract;
 
@@ -32,24 +33,30 @@ public class EventContent {
     public EventContent(Cursor c){
         String event;
         EventItem eventI;
-        if(c.moveToFirst()) {
-            do{
-                event = c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_HEADER));
-                eventI = new EventItem(String.valueOf(c.getPosition()),event);
-                ITEMS.add(eventI);
-                ITEM_MAP.put(eventI.id,eventI);
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    event = c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_HEADER));
+                    eventI = new EventItem(String.valueOf(c.getPosition()), event);
+                    ITEMS.add(eventI);
+                    ITEM_MAP.put(eventI.id, eventI);
 
-            }while(c.moveToNext());
+                } while (c.moveToNext());
+            } else if (c != null) {
+                eventI = new EventItem(String.valueOf(-1), "No event found in local db");
+                ITEMS.add(eventI);
+                ITEM_MAP.put(eventI.id, eventI);
+            } else {
+                eventI = new EventItem(" ", "No event found in local db");
+                ITEMS.add(eventI);
+                ITEM_MAP.put(eventI.id, eventI);
+            }
         }
-        else if(c!=null){
-            eventI = new EventItem(String.valueOf(-1),"No event found in local db");
+        catch (NullPointerException ne){
+            Log.e("EventContent","Error: "+ne.getLocalizedMessage());
+            eventI = new EventItem(" ", "No event found in local db");
             ITEMS.add(eventI);
-            ITEM_MAP.put(eventI.id,eventI);
-        }
-        else{
-            eventI = new EventItem(" ","No event found in local db");
-            ITEMS.add(eventI);
-            ITEM_MAP.put(eventI.id,eventI);
+            ITEM_MAP.put(eventI.id, eventI);
         }
     }
 

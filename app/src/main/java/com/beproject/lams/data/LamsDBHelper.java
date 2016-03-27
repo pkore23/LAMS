@@ -48,8 +48,9 @@ public class LamsDBHelper extends SQLiteOpenHelper {
                 LamsDataContract.Subject.COLUMN_INCHARGE + " TEXT NOT NULL, "+
                 LamsDataContract.Subject.COLUMN_PRACTICAL + " INTEGER NOT NULL, " +
                 LamsDataContract.Subject.COLUMN_THEORY + " INTEGER NOT NULL);";
-        final String EVENT_CREATE = "CREATE TABLE" + LamsDataContract.Event.TABLE_NAME + "("+
-                LamsDataContract.Event.COLUMN_EVENT_HEADER + "TEXT);";
+        final String EVENT_CREATE = "CREATE TABLE " + LamsDataContract.Event.TABLE_NAME + "("+
+                LamsDataContract.Event._ID + " TEXT PRIMARY KEY, " +
+                LamsDataContract.Event.COLUMN_EVENT_HEADER + " TEXT);";
         db.execSQL(STUDENT_TABLE_CREATE);
         db.execSQL(STAFF_CREATE);
         db.execSQL(SUBJECT_CREATE);

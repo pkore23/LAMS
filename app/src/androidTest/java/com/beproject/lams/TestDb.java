@@ -46,7 +46,8 @@ public class TestDb extends ApplicationTestCase<Application> {
         final HashSet<String> tableNameHashSet = new HashSet<String>();
         tableNameHashSet.add(LamsDataContract.Student.TABLE_NAME);
         tableNameHashSet.add(LamsDataContract.Staff.TABLE_NAME);
-        //tableNameHashSet.add(LamsDataContract.Subject.TABLE_NAME);
+        tableNameHashSet.add(LamsDataContract.Subject.TABLE_NAME);
+        tableNameHashSet.add(LamsDataContract.Event.TABLE_NAME);
 
         //verify tables exists in db
         Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
@@ -83,6 +84,26 @@ public class TestDb extends ApplicationTestCase<Application> {
              studentColumns.remove(c.getString(columnIndex));
          }while(c.moveToNext());
          assertTrue("Error: this means we were unable to create all columns "+studentColumns.size(), studentColumns.isEmpty());
+         c.close();
+         db.close();
+     }
+    public void testColumnsEvent(){
+         mContext.deleteDatabase(LamsDBHelper.DATABASE_NAME);
+         db = new LamsDBHelper(
+                 this.mContext).getWritableDatabase();
+
+         final HashSet<String> eventColumns = new HashSet<String>();
+         eventColumns.add(LamsDataContract.Event._ID);
+         eventColumns.add(LamsDataContract.Event.COLUMN_EVENT_HEADER);
+
+         Cursor c = db.rawQuery("PRAGMA table_info(" + LamsDataContract.Event.TABLE_NAME + ")",
+                 null);
+         assertTrue("This means we were unable to query table information from database",c.moveToFirst());
+         int columnIndex = c.getColumnIndex("name");
+         do{
+             eventColumns.remove(c.getString(columnIndex));
+         }while(c.moveToNext());
+         assertTrue("Error: this means we were unable to create all columns "+eventColumns.size(), eventColumns.isEmpty());
          c.close();
          db.close();
      }

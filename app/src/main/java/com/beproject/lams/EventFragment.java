@@ -88,7 +88,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            ec = null;
+            ec = new EventContent(null);
             mAdapter = new MyEventRecyclerViewAdapter(ec.ITEMS, mListener);
             recyclerView.setAdapter(mAdapter);
         }
@@ -117,7 +117,8 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         pb =new ProgressBar(getContext(),null,android.R.style.Widget_Material_ProgressBar);
         pb.setIndeterminate(true);
-        pb.setForegroundGravity(View.TEXT_ALIGNMENT_CENTER);
+
+        //pb.setForegroundGravity(View.TEXT_ALIGNMENT_CENTER);
         pb.setVisibility(View.VISIBLE);
         String[] mColumns = {LamsDataContract.Event.COLUMN_EVENT_HEADER};
         return new CursorLoader(getActivity(),

@@ -29,7 +29,9 @@
             android:authorities="com.beproject.lams"
             android:enabled="true"
             android:exported="false" />
-
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
 
 </manifest>
