@@ -26,6 +26,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     EditText p,u;
     Intent i;
     String mResponse;
+    public ProgressBar mpb;
     private String DUMMY_CREDENTIALS[] = {"admin:admin:0","staff:staff:1"};
     private int loginAttempt;
     public LoginActivityFragment() {
@@ -40,13 +41,17 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
         u = (EditText) rootView.findViewById(R.id.usrid);
         b = (Button) rootView.findViewById(R.id.btnlogin);
         b.setOnClickListener(this);
+        mpb = new ProgressBar(getContext(),null, android.R.style.Widget_ProgressBar_Inverse);
+        mpb.setIndeterminate(true);
         return rootView;
     }
 
     @Override
     public void onClick(View v) {
+        mpb.setVisibility(View.VISIBLE);
         i = new Intent(getContext(),UserActivity.class);
-        if(attemptLogin(v)) {
+        if(attemptLogin()) {
+            mpb.setVisibility(View.GONE);
             startActivity(i);
         }
         else if(loginAttempt<3){
@@ -55,18 +60,17 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
             p.setText("");
             u.setText("");
             u.requestFocus();
+            mpb.setVisibility(View.GONE);
         }
         else {
+            mpb.setVisibility(View.GONE);
             Toast.makeText(getContext(),"Login Attempt exceeded.",Toast.LENGTH_LONG).show();
             getActivity().finish();
             System.exit(0);
         }
     }
 
-    private boolean attemptLogin(View v) {
-        ProgressBar pb = new ProgressBar(getContext(),null, android.R.style.Widget_ProgressBar_Inverse);
-        pb.setIndeterminate(true);
-        pb.setVisibility(View.VISIBLE);
+    private boolean attemptLogin() {
         MyHttpClient Login = new MyHttpClient(this);
         Login.execute(u.getText().toString(),p.getText().toString());
         try{
@@ -79,20 +83,18 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
             mResponse = "-1";
             e.printStackTrace();
         }
-        pb.setVisibility(View.GONE);
+
         if(mResponse.contains("0")){
             return true;
         }
         else if (mResponse.contains("1")){
-            Snackbar.make(v,"Incorrect user name!",Snackbar.LENGTH_SHORT).show();
             return false;
         }
         else if(mResponse.contains("2")){
-            Snackbar.make(v,"Incorrect password!",Snackbar.LENGTH_SHORT).show();
             return false;
         }
         else{
-            Snackbar.make(v,"Error communicating with server\nOr Malformed response.",Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Error communicating with server Or Malformed response.",Toast.LENGTH_SHORT).show();
             return false;
         }
     }

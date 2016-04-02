@@ -138,12 +138,12 @@ public class UserActivity extends AppCompatActivity
         }
         else {
             if (id.equals(getString(R.string.home))) {
-                content = new EventFragment();
+                content = EventFragment.newInstance(1);
             } else if (id.equals(getString(R.string.new_lec))) {
-                content = new ErrorFragment();
+                content = NewLecture.newInstance();
             } else if (id.equals(getString(R.string.attd_rep_std))) {
                 content = new ErrorFragment();
-            } else if (id.equals(getString(R.string.attd_rep_std))) {
+            } else if (id.equals(getString(R.string.attd_rep_sub))) {
                 content = new ErrorFragment();
             } else if (id.equals(getString(R.string.mentor_stud))) {
                 content = new ErrorFragment();

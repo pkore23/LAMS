@@ -3,6 +3,7 @@ package com.beproject.lams;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -15,11 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-
 import com.beproject.lams.data.LamsDataContract;
-import com.beproject.lams.dummy.EventContent;
-import com.beproject.lams.dummy.EventContent.EventItem;
-import com.beproject.lams.dummy.EventContent;
+import com.beproject.lams.dummy.AttendanceContent;
+import com.beproject.lams.dummy.AttendanceContent;
+import com.beproject.lams.dummy.AttendanceContent.AttendanceItem;
 
 import java.util.List;
 
@@ -29,25 +29,26 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class EventFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class AttendanceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
-    private ProgressBar pb;
     private OnListFragmentInteractionListener mListener;
-    private static final int LOADER_ID = 0;
+    ProgressBar pb;
+    AttendanceContent ac;
+    MyAttendanceRecyclerViewAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public EventFragment() {
+    public AttendanceFragment() {
     }
 
-    public static EventFragment newInstance(int columnCount) {
-        EventFragment fragment = new EventFragment();
+    
+    @SuppressWarnings("unused")
+    public static AttendanceFragment newInstance(int columnCount) {
+        AttendanceFragment fragment = new AttendanceFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -64,18 +65,9 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(LOADER_ID, null, this);
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    EventContent ec;
-    MyEventRecyclerViewAdapter mAdapter;
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_event_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_attendance_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -86,14 +78,18 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            ec = new EventContent(null);
-            mAdapter = new MyEventRecyclerViewAdapter(ec.ITEMS, mListener);
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),LinearLayoutManager.VERTICAL));
+            ac = new AttendanceContent(null);
+            mAdapter = new MyAttendanceRecyclerViewAdapter(ac.ITEMS, mListener);
             recyclerView.setAdapter(mAdapter);
         }
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getLoaderManager().initLoader(Constants.LOADERATTENDANCE,null,this);
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -119,26 +115,27 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
         //pb.setForegroundGravity(View.TEXT_ALIGNMENT_CENTER);
         pb.setVisibility(View.VISIBLE);
-        String[] mColumns = {LamsDataContract.Event.COLUMN_EVENT_HEADER};
+        String[] mColumns = {LamsDataContract.Student.COLUMN_ENROLL_ID,LamsDataContract.Student.COLUMN_NAME};
+        String orderBy = LamsDataContract.Student.COLUMN_NAME+" ASC";
         return new CursorLoader(getActivity(),
                 LamsDataContract.Event.CONTENT_URI,
                 mColumns,
                 null,
                 null,
-                null);
+                orderBy);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        ec = new EventContent(data);
-        mAdapter.swapItem(ec.ITEMS);
+        ac = new AttendanceContent(data);
+        mAdapter.swapItem(ac.ITEMS);
         pb.setVisibility(View.GONE);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        ec = new EventContent(null);
-        mAdapter.swapItem(ec.ITEMS);
+        ac = new AttendanceContent(null);
+        mAdapter.swapItem(ac.ITEMS);
     }
 
     /**
@@ -151,11 +148,8 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-
-
     public interface OnListFragmentInteractionListener {
-        //ToDo:Implement DetailView
-        void onListFragmentInteraction(EventContent.EventItem item);
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(AttendanceItem item);
     }
-
 }

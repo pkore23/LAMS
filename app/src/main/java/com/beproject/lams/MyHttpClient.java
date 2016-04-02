@@ -2,6 +2,8 @@ package com.beproject.lams;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
