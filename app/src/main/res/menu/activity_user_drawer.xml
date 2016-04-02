@@ -8,20 +8,20 @@
             android:title="@string/home" />
         <item
             android:id="@+id/nav_first"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/imprt" />
+            android:icon="@drawable/ic_new_lec"
+            android:title="@string/new_lec" />
         <item
             android:id="@+id/nav_second"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/gall" />
+            android:icon="@drawable/ic_action_name2"
+            android:title="@string/attd_rep_std" />
         <item
             android:id="@+id/nav_third"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/slideshw" />
+            android:icon="@drawable/ic_action_name2"
+            android:title="@string/attd_rep_sub" />
         <item
             android:id="@+id/nav_fourth"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/tools" />
+            android:icon="@drawable/ic_action_name3"
+            android:title="@string/mentor_stud" />
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/adminRights">

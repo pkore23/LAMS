@@ -37,7 +37,6 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     private int mColumnCount = 1;
     private ProgressBar pb;
     private OnListFragmentInteractionListener mListener;
-    private static final int LOADER_ID = 0;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,7 +64,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        getLoaderManager().initLoader(Constants.LOADEREVENT, null, this);
         super.onActivityCreated(savedInstanceState);
     }
 

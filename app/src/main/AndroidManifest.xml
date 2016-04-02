@@ -43,6 +43,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.beproject.lams.UserActivity" />
         </activity>
+        <activity
+            android:name=".StudentListActivity"
+            android:label="@string/title_student_list"
+            android:parentActivityName=".UserActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beproject.lams.UserActivity" />
+        </activity>
+        <activity
+            android:name=".StudentDetailActivity"
+            android:label="@string/title_student_detail"
+            android:parentActivityName=".StudentListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beproject.lams.StudentListActivity" />
+        </activity>
     </application>
 
 </manifest>
