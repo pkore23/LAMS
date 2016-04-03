@@ -17,6 +17,10 @@ public class LamsContentProvider extends ContentProvider {
     }
 
     static final int EVENT = 100;
+    static final int STUDENT = 200;
+    static final int STAFF = 300;
+    static final int SUBJECT = 400;
+    static final int LECTURE = 500;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     static UriMatcher buildUriMatcher(){
@@ -24,6 +28,10 @@ public class LamsContentProvider extends ContentProvider {
         String authority = LamsDataContract.CONTENT_AUTHORITY;
 
         matcher.addURI(authority,LamsDataContract.PATH_EVENT, EVENT);
+        matcher.addURI(authority,LamsDataContract.PATH_STUDENT, STUDENT);
+        matcher.addURI(authority,LamsDataContract.PATH_STAFF, STAFF);
+        matcher.addURI(authority,LamsDataContract.PATH_SUBJECT, SUBJECT);
+        matcher.addURI(authority,LamsDataContract.PATH_LECTURE, LECTURE);
 
         return matcher;
     }
@@ -38,6 +46,14 @@ public class LamsContentProvider extends ContentProvider {
         switch (match){
             case EVENT: rowsDeleted = db.delete(LamsDataContract.Event.TABLE_NAME,selection, selectionArgs);
                 break;
+            case STUDENT: rowsDeleted = db.delete(LamsDataContract.Student.TABLE_NAME,selection, selectionArgs);
+                break;
+            case STAFF: rowsDeleted = db.delete(LamsDataContract.Staff.TABLE_NAME,selection, selectionArgs);
+                break;
+            case SUBJECT: rowsDeleted = db.delete(LamsDataContract.Subject.TABLE_NAME,selection, selectionArgs);
+                break;
+            case LECTURE: rowsDeleted = db.delete(LamsDataContract.Lecture.TABLE_NAME,selection, selectionArgs);
+                break;
             default: throw new UnsupportedOperationException("Unknown Uri: "+uri);
         }
         if(rowsDeleted>0)
@@ -51,6 +67,10 @@ public class LamsContentProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match){
             case EVENT: return LamsDataContract.Event.CONTENT_TYPE;
+            case STUDENT: return LamsDataContract.Student.CONTENT_TYPE;
+            case SUBJECT: return LamsDataContract.Subject.CONTENT_TYPE;
+            case STAFF: return LamsDataContract.Staff.CONTENT_TYPE;
+            case LECTURE: return LamsDataContract.Lecture.CONTENT_TYPE;
             default:throw new UnsupportedOperationException("Unknown Uri: "+uri);
         }
     }
@@ -67,6 +87,30 @@ public class LamsContentProvider extends ContentProvider {
                     returnUri = LamsDataContract.Event.buildEvent(_id);
                 else
                         throw new SQLException("Failed to insert row into "+uri);
+                break;
+            case STUDENT: _id=db.insert(LamsDataContract.Student.TABLE_NAME,null,values);
+                if(_id>0)
+                    returnUri = LamsDataContract.Event.buildEvent(_id);
+                else
+                    throw new SQLException("Failed to insert row into "+uri);
+                break;
+            case STAFF: _id=db.insert(LamsDataContract.Staff.TABLE_NAME,null,values);
+                if(_id>0)
+                    returnUri = LamsDataContract.Event.buildEvent(_id);
+                else
+                    throw new SQLException("Failed to insert row into "+uri);
+                break;
+            case SUBJECT: _id=db.insert(LamsDataContract.Subject.TABLE_NAME,null,values);
+                if(_id>0)
+                    returnUri = LamsDataContract.Event.buildEvent(_id);
+                else
+                    throw new SQLException("Failed to insert row into "+uri);
+                break;
+            case LECTURE: _id=db.insert(LamsDataContract.Event.TABLE_NAME,null,values);
+                if(_id>0)
+                    returnUri = LamsDataContract.Event.buildEvent(_id);
+                else
+                    throw new SQLException("Failed to insert row into "+uri);
                 break;
             default: throw new UnsupportedOperationException("Unknown uri: "+uri);
         }
@@ -108,5 +152,86 @@ public class LamsContentProvider extends ContentProvider {
         if(rowsUpdated>0)
             getContext().getContentResolver().notifyChange(uri,null);
         return rowsUpdated;
+    }
+    @SuppressWarnings("All")
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+        final SQLiteDatabase db = mDBHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        int returnCount = 0;
+        switch(match){
+            case EVENT: db.beginTransaction();
+                try{
+                    for (ContentValues cv: values) {
+                        long _id = db.insert(LamsDataContract.Event.TABLE_NAME,null,cv);
+                        if(_id!=-1)
+                            returnCount++;
+                    }
+                    db.setTransactionSuccessful();
+                }
+                finally{
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return returnCount;
+            case STUDENT: db.beginTransaction();
+                try{
+                    for (ContentValues cv: values) {
+                        long _id = db.insert(LamsDataContract.Student.TABLE_NAME,null,cv);
+                        if(_id!=-1)
+                            returnCount++;
+                    }
+                    db.setTransactionSuccessful();
+                }
+                finally{
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return returnCount;
+            case SUBJECT: db.beginTransaction();
+                try{
+                    for (ContentValues cv: values) {
+                        long _id = db.insert(LamsDataContract.Subject.TABLE_NAME,null,cv);
+                        if(_id!=-1)
+                            returnCount++;
+                    }
+                    db.setTransactionSuccessful();
+                }
+                finally{
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return returnCount;
+            case STAFF: db.beginTransaction();
+                try{
+                    for (ContentValues cv: values) {
+                        long _id = db.insert(LamsDataContract.Staff.TABLE_NAME,null,cv);
+                        if(_id!=-1)
+                            returnCount++;
+                    }
+                    db.setTransactionSuccessful();
+                }
+                finally{
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return returnCount;
+            case LECTURE: db.beginTransaction();
+                try{
+                    for (ContentValues cv: values) {
+                        long _id = db.insert(LamsDataContract.Lecture.TABLE_NAME,null,cv);
+                        if(_id!=-1)
+                            returnCount++;
+                    }
+                    db.setTransactionSuccessful();
+                }
+                finally{
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return returnCount;
+            default:
+                return super.bulkInsert(uri, values);
+        }
     }
 }

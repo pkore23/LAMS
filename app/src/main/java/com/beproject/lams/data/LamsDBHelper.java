@@ -25,10 +25,13 @@ public class LamsDBHelper extends SQLiteOpenHelper {
             Student._ID + " INTEGER PRIMARY KEY, " +
             Student.COLUMN_ENROLL_ID + " TEXT UNIQUE NOT NULL, " +
             Student.COLUMN_NAME + " TEXT NOT NULL, " +
+            Student.COLUMN_DEPT + " TEXT NOT NULL, " +
             Student.COLUMN_CLASS + " TEXT NOT NULL, " +
             Student.COLUMN_ROLL + " INTEGER NOT NULL, " +
             Student.COLUMN_CONTACT + " BIGINT UNIQUE NOT NULL, " +
+            Student.COLUMN_PCONTACT + " BIGINT UNIQUE NOT NULL, " +
             Student.COLUMN_MENTOR + " TEXT NOT NULL, " +
+            Student.COLUMN_UNAME + " TEXT NOT NULL, " +
             "FOREIGN KEY (" + Student.COLUMN_MENTOR + ") REFERENCES " + Staff.TABLE_NAME +
             "(" + Staff.COLUMN_STAFF_ID + ")" +
             ");";
@@ -38,6 +41,8 @@ public class LamsDBHelper extends SQLiteOpenHelper {
                 Staff.COLUMN_NAME + " TEXT NOT NULL,  " +
                 Staff.COLUMN_DEPT + " TEXT NOT NULL, " +
                 Staff.COLUMN_EMAIL + " TEXT NOT NULL, " +
+                Staff.COLUMN_ISADMIN + " INT NOT NULL, " +
+                Staff.COLUMN_UNAME + " TEXT NOT NULL, " +
                 Staff.COLUMN_POST + " TEXT NOT NULL);";
         final String SUBJECT_CREATE = "CREATE TABLE " + LamsDataContract.Subject.TABLE_NAME +"("+
                 LamsDataContract.Subject._ID + " TEXT PRIMARY KEY, " +

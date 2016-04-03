@@ -85,7 +85,7 @@ public class StudentListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS,mTwoPane,getSupportFragmentManager()));
     }
 
 

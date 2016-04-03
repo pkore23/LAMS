@@ -16,6 +16,8 @@
     <string name="new_stf" translatable="false">New user:\nStaff</string>
     <string name="exit" translatable="false">Sure to Exit?</string>
     <string name="exit_msg" translatable="false">You will be logged out.</string>
+    <string name="content_authority" translatable="false">com.beproject.lams</string>
+    <string name="sync_account_type">lams.beproject.com</string>
 
     <string name="title_student_list" translatable="false">Students</string>
     <string name="title_student_detail" translatable="false">Student Detail</string>

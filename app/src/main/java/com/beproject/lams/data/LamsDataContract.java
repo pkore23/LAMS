@@ -33,9 +33,12 @@ public class LamsDataContract {
         public static final String COLUMN_ENROLL_ID = "enroll_id";
         public static final String COLUMN_NAME = "s_name";
         public static final String COLUMN_CLASS = "s_class";
+        public static final String COLUMN_DEPT = "s_dept";
         public static final String COLUMN_ROLL = "s_roll_no";
         public static final String COLUMN_CONTACT = "s_contact";
+        public static final String COLUMN_PCONTACT = "p_contact";
         public static final String COLUMN_MENTOR = "s_mentor";
+        public static final String COLUMN_UNAME = "username";
 
         //Uri builder functions
         public static Uri buildStudentRoll(int roll){
@@ -114,6 +117,8 @@ public class LamsDataContract {
             public static final String COLUMN_DEPT = "st_dept";
             public static final String COLUMN_EMAIL = "st_mail";
             public static final String COLUMN_POST = "st_post";
+            public static final String COLUMN_UNAME = "username";
+            public static final String COLUMN_ISADMIN = "is_admin";
 
             //Uri buliders for staff
             public static Uri buildId(String id){
