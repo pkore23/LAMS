@@ -118,7 +118,7 @@ public class LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                 cv[i] = new ContentValues();
                 cv[i].put(LamsDataContract.Student.COLUMN_ENROLL_ID,columns[0]);
                 cv[i].put(LamsDataContract.Student.COLUMN_NAME,columns[1]);
-                cv[i].put(LamsDataContract.Student.COLUMN_DEPT,columns[2]);   
+                cv[i].put(LamsDataContract.Student.COLUMN_DEPT,columns[2]);
                 cv[i].put(LamsDataContract.Student.COLUMN_ROLL,columns[3]);
                 cv[i].put(LamsDataContract.Student.COLUMN_CONTACT,columns[4]);
                 cv[i].put(LamsDataContract.Student.COLUMN_PCONTACT,columns[5]);
@@ -126,6 +126,49 @@ public class LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                 cv[i].put(LamsDataContract.Student.COLUMN_UNAME,columns[7]);
             }
             getContext().getContentResolver().bulkInsert(LamsDataContract.Student.CONTENT_URI,cv);
+
+            url = new URL(APP_INTERFACE_STAFF_URL);
+
+            // Create the request to OpenWeatherMap, and open the connection
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            // Read the input stream into a String
+            inputStream = urlConnection.getInputStream();
+            buffer = new StringBuffer();
+            if (inputStream == null) {
+                // Nothing to do.
+                return;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+
+            while ((line = reader.readLine()) != null) {
+
+                buffer.append(line + "\n");
+            }
+
+            if (buffer.length() == 0) {
+                // Stream was empty.  No point in parsing.
+                return;
+            }
+            data = buffer.toString();
+            rows = data.split("!");
+            cv = new ContentValues[rows.length];
+            i=0;
+            for (String row:rows) {
+                String columns[] = row.split("#");
+                cv[i] = new ContentValues();
+                cv[i].put(LamsDataContract.Staff.COLUMN_STAFF_ID,columns[0]);
+                cv[i].put(LamsDataContract.Staff.COLUMN_NAME,columns[1]);
+                cv[i].put(LamsDataContract.Student.COLUMN_DEPT,columns[2]);
+                cv[i].put(LamsDataContract.Staff.COLUMN_EMAIL,columns[3]);
+                cv[i].put(LamsDataContract.Staff.COLUMN_POST,columns[4]);
+                cv[i].put(LamsDataContract.Staff.COLUMN_UNAME,columns[5]);
+                cv[i].put(LamsDataContract.Staff.COLUMN_ISADMIN,Integer.parseInt(columns[6]));
+            }
+            getContext().getContentResolver().bulkInsert(LamsDataContract.Staff.CONTENT_URI,cv);
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);

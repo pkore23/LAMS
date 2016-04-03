@@ -45,7 +45,9 @@
     <string name="cfn_pass">Confirm password</string>
     <string name="crete_lec">Create Lecture</string>
     <string name="logged_in">Keep me logged in</string>
-    <string name="select_lec">Select todays lecture</string>
+    <string name="select_lec">Select today's lecture</string>
     <string name="create_lec">Create Lecture</string>
     <string name="title_activity_attendance">AttendanceActivity</string>
+
+    <string name="apikey" translatable="true">cnn/Nfq5DvznNA8QosIiPt5O3u8ytZXfD4qL1AOiCH4QZxjvtHKbJw</string>
 </resources>
