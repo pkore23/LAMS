@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SyncRequest;
 import android.content.SyncResult;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.Vector;
 
@@ -83,9 +85,10 @@ public class LamsSyncAdapter extends AbstractThreadedSyncAdapter {
             final String APP_INTERFACE_STAFF_URL =
                     "http://192.168.1.103/appinterface/get_staff.php";
 
-            URL url = new URL(APP_INTERFACE_STUDENT_URL);
+            Uri uri = Uri.parse(APP_INTERFACE_STAFF_URL).buildUpon().appendQueryParameter("q",getContext().getString(R.string.apikey)).build();
+            URL url = new URL(uri.toString());
 
-            // Create the request to OpenWeatherMap, and open the connection
+            // Create the request to server, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();

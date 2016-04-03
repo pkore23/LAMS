@@ -8,4 +8,8 @@ public final class Constants {
     public static final int LOADEREVENT = 0;
     public static final int LOADERATTENDANCE = 1;
     public static final int LOADERLECID = 2;
+    public static String USERID = "";
+    public static String PASSWD = "";
+    public static final String PREFERENCE = "com.beproject.lams";
+    public static int USERTYPE = -1;
 }

@@ -51,7 +51,7 @@ public class MyHttpClient extends AsyncTask<String,Void,String> {
         try {
             //request
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost(new URI("http://192.168.1.103/lams/appinterface/app_login.php"));
+            HttpPost post = new HttpPost(new URI("http://192.168.1.103/lams/appinterface/app_login.php?q="+mLoginActivityFragment.getString(R.string.apikey)));
             List<NameValuePair> postData = new ArrayList<NameValuePair>(2);
             postData.add(new BasicNameValuePair("userid",userid));
             postData.add(new BasicNameValuePair("password",passwd));

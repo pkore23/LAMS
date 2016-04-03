@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     View rootView;
     Button b;
     EditText p,u;
+    AppCompatCheckBox cb;
     Intent i;
     String mResponse;
     public ProgressBar mpb;
@@ -37,10 +39,20 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
         loginAttempt = 0;
+        SharedPreferences sp = getContext().getSharedPreferences(Constants.PREFERENCE,Context.MODE_PRIVATE);
         p = (EditText) rootView.findViewById(R.id.passd);
         u = (EditText) rootView.findViewById(R.id.usrid);
         b = (Button) rootView.findViewById(R.id.btnlogin);
+        cb = (AppCompatCheckBox) rootView.findViewById(R.id.cbPerLog);
         b.setOnClickListener(this);
+        if(sp.getBoolean("perssistlog",false)){
+            u.setText(sp.getString("userid",""));
+            p.setText(sp.getString("password",""));
+            Constants.USERID = u.getText().toString();
+            Constants.PASSWD = p.getText().toString();
+            cb.setChecked(true);
+            b.callOnClick();
+        }
         mpb = new ProgressBar(getContext(),null, android.R.style.Widget_ProgressBar_Inverse);
         mpb.setIndeterminate(true);
         return rootView;
@@ -53,6 +65,20 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
         if(attemptLogin()) {
             mpb.setVisibility(View.GONE);
             startActivity(i);
+            if(cb.isChecked()){
+                SharedPreferences sp = getContext().getSharedPreferences(Constants.PREFERENCE,Context.MODE_PRIVATE);
+                sp.edit().putString("userid",u.getText().toString())
+                        .putString("password",p.getText().toString())
+                        .putBoolean("perssistlog",true)
+                        .apply();
+            }
+            try{
+                UserType ut = new UserType(getContext());
+                ut.execute();
+                Constants.USERTYPE = ut.get();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         else if(loginAttempt<3){
             Snackbar.make(v,"Login attemt faild: Incorrect credentials.",Snackbar.LENGTH_SHORT).show();
@@ -72,6 +98,8 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
 
     private boolean attemptLogin() {
         MyHttpClient Login = new MyHttpClient(this);
+        Constants.USERID = u.getText().toString();
+        Constants.PASSWD = p.getText().toString();
         Login.execute(u.getText().toString(),p.getText().toString());
         try{
             mResponse = Login.get();

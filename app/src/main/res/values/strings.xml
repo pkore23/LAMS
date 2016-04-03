@@ -1,3 +1,4 @@
+
 <resources>
     <string name="app_name" translatable="false">LAMS</string>
     <string name="action_settings" translatable="false">Settings</string>
@@ -45,7 +46,7 @@
     <string name="cfn_pass">Confirm password</string>
     <string name="crete_lec">Create Lecture</string>
     <string name="logged_in">Keep me logged in</string>
-    <string name="select_lec">Select today's lecture</string>
+    <string name="select_lec">Select lecture</string>
     <string name="create_lec">Create Lecture</string>
     <string name="title_activity_attendance">AttendanceActivity</string>
 

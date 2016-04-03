@@ -66,7 +66,7 @@ public class UserActivity extends AppCompatActivity
         MenuItem m3 = navMenu.getItem(3);
         MenuItem m4 = navMenu.getItem(4);
         SharedPreferences prefs= getSharedPreferences("com.beproject.lams", Context.MODE_PRIVATE);
-        int UserType = prefs.getInt("UserType",-1);
+        int UserType = Constants.USERTYPE;
         switch(UserType){
             default:
             case -1: m1.setTitle("Error").setIcon(R.drawable.ic_warning);
@@ -80,6 +80,9 @@ public class UserActivity extends AppCompatActivity
                 m2.setTitle(R.string.attd_rep_std).setIcon(R.drawable.ic_action_name2);
                 m3.setTitle(R.string.attd_rep_sub).setIcon(R.drawable.ic_action_name2);
                 m4.setTitle(R.string.mentor_stud).setIcon(R.drawable.ic_action_name3);
+                break;
+            case 2: navMenu.removeGroup(R.id.adminRights);
+                m1.setTitle("My Subjects").setIcon(R.drawable.ic_action_name2);
                 break;
         }
 

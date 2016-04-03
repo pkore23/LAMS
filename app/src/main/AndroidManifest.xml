@@ -2,13 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.beproject.lams">
 
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
     <uses-permission-sdk-23 android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-    <uses-permission-sdk-23 android:name="android.permission.READ_SYNC_SETTINGS"/>
+
+    <uses-permission-sdk-23 android:name="android.permission.READ_SYNC_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +42,7 @@
             android:authorities="com.beproject.lams"
             android:enabled="true"
             android:exported="false"
-            android:syncable="true"/>
+            android:syncable="true" />
 
         <activity
             android:name=".AttendanceActivity"
@@ -67,14 +73,26 @@
         </activity>
 
         <service
-            android:name=".sync.LamsAuthenticatorService"
+            android:name=".sync.LamsSyncService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
-            <meta-data android:name="android.content.SyncAdapter"
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
                 android:resource="@xml/sync_adapter" />
+        </service>
+        <service
+            android:name=".sync.LamsAuthenticatorService"
+            android:enabled="true"
+            android:exported="true"><intent-filter>
+            <action android:name="android.accounts.AccountAuthenticator" />
+        </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
         </service>
     </application>
 
