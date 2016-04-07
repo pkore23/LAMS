@@ -1,26 +1,17 @@
 package com.beproject.lams;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.beproject.lams.dummy.DummyContent;
-
-import java.util.List;
+import com.beproject.lams.data.LamsDataContract;
+import com.beproject.lams.dummy.StudentListContent;
 
 /**
  * An activity representing a list of Students. This activity
@@ -47,8 +38,6 @@ public class StudentListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -85,7 +74,14 @@ public class StudentListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS,mTwoPane,getSupportFragmentManager()));
+        StudentListContent slc = new StudentListContent(getContentResolver().query(LamsDataContract.Student.CONTENT_URI,
+                new String[]{LamsDataContract.Student.COLUMN_ENROLL_ID,LamsDataContract.Student.COLUMN_NAME},
+                null,
+                null,
+                LamsDataContract.Student.COLUMN_NAME+" asc"));
+        Constants.ITEMSSTUDENT = slc.ITEMS;
+        Constants.ITMESSTUDENTMAP = slc.ITEM_MAP;
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(slc.ITEMS,mTwoPane,getSupportFragmentManager()));
     }
 
 

@@ -78,7 +78,7 @@ public class AttendanceFragment extends Fragment implements LoaderManager.Loader
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            ac = new AttendanceContent(null);
+            ac = new AttendanceContent(getContext().getContentResolver().query(LamsDataContract.Student.CONTENT_URI,null,null,null,"s_name asc"));
             mAdapter = new MyAttendanceRecyclerViewAdapter(ac.ITEMS, mListener);
             recyclerView.setAdapter(mAdapter);
         }
@@ -118,7 +118,7 @@ public class AttendanceFragment extends Fragment implements LoaderManager.Loader
         String[] mColumns = {LamsDataContract.Student.COLUMN_ENROLL_ID,LamsDataContract.Student.COLUMN_NAME};
         String orderBy = LamsDataContract.Student.COLUMN_NAME+" ASC";
         return new CursorLoader(getActivity(),
-                LamsDataContract.Event.CONTENT_URI,
+                LamsDataContract.Student.CONTENT_URI,
                 mColumns,
                 null,
                 null,

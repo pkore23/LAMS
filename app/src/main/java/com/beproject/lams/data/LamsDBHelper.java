@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.beproject.lams.data.LamsDataContract.Student;
 import com.beproject.lams.data.LamsDataContract.Staff;
+import com.beproject.lams.sync.LamsSyncService;
 
 import javax.security.auth.Subject;
 
@@ -23,7 +24,7 @@ public class LamsDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String STUDENT_TABLE_CREATE = "CREATE TABLE "+ Student.TABLE_NAME + " (" +
             Student._ID + " INTEGER PRIMARY KEY, " +
-            Student.COLUMN_ENROLL_ID + " TEXT UNIQUE NOT NULL, " +
+            Student.COLUMN_ENROLL_ID + " TEXT NOT NULL, " +
             Student.COLUMN_NAME + " TEXT NOT NULL, " +
             Student.COLUMN_DEPT + " TEXT NOT NULL, " +
             Student.COLUMN_CLASS + " TEXT NOT NULL, " +
@@ -45,21 +46,40 @@ public class LamsDBHelper extends SQLiteOpenHelper {
                 Staff.COLUMN_UNAME + " TEXT NOT NULL, " +
                 Staff.COLUMN_POST + " TEXT NOT NULL);";
         final String SUBJECT_CREATE = "CREATE TABLE " + LamsDataContract.Subject.TABLE_NAME +"("+
-                LamsDataContract.Subject._ID + " TEXT PRIMARY KEY, " +
+                LamsDataContract.Subject._ID + " INTEGER PRIMARY KEY, " +
                 LamsDataContract.Subject.COLUMN_SUB_ID + " TEXT UNIQUE NOT NULL, " +
                 LamsDataContract.Subject.COLUMN_NAME + " TEXT NOT NULL, " +
                 LamsDataContract.Subject.COLUMN_DEPT + " TEXT NOT NULL, " +
                 LamsDataContract.Subject.COLUMN_YEAR + " INTEGER NOT NULL, " +
                 LamsDataContract.Subject.COLUMN_INCHARGE + " TEXT NOT NULL, "+
-                LamsDataContract.Subject.COLUMN_PRACTICAL + " INTEGER NOT NULL, " +
-                LamsDataContract.Subject.COLUMN_THEORY + " INTEGER NOT NULL);";
+                LamsDataContract.Subject.COLUMN_OTHER_STAFF1 + " Text, "+
+                LamsDataContract.Subject.COLUMN_OTHER_STAFF2 + " Text, "+
+                LamsDataContract.Subject.COLUMN_OTHER_STAFF3 + " Text, "+
+                LamsDataContract.Subject.COLUMN_OTHER_STAFF4 + " Text "+");";
         final String EVENT_CREATE = "CREATE TABLE " + LamsDataContract.Event.TABLE_NAME + "("+
-                LamsDataContract.Event._ID + " TEXT PRIMARY KEY, " +
-                LamsDataContract.Event.COLUMN_EVENT_HEADER + " TEXT);";
+                LamsDataContract.Event._ID + " INTEGER PRIMARY KEY, " +
+                LamsDataContract.Event.COLUMN_EVENT_ID + " TEXT, "+
+                LamsDataContract.Event.COLUMN_EVENT_STAFF_GEN + " TEXT, "+
+                LamsDataContract.Event.COLUMN_EVENT_TYPE + " TEXT, "+
+                LamsDataContract.Event.COLUMN_EVENT_TOPIC + " TEXT, "+
+                LamsDataContract.Event.COLUMN_EVENT_DATE + " TEXT);";
+        final String LECTURE_CREATE = "CREATE TABLE "+ LamsDataContract.Lecture.TABLE_NAME + "("+
+                LamsDataContract.Lecture._ID + " INTEGER PRIMARY KEY, "+
+                LamsDataContract.Lecture.COLUMN_LEC_ID + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_SUBJECT + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_DAY + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_TIME + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_TYPE + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_DEPT + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_class + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_STAFF + " TEXT NOT NULL, "+
+                LamsDataContract.Lecture.COLUMN_LOCATION + " TEXT NOT NULL "+
+                ")";
         db.execSQL(STUDENT_TABLE_CREATE);
         db.execSQL(STAFF_CREATE);
         db.execSQL(SUBJECT_CREATE);
         db.execSQL(EVENT_CREATE);
+        db.execSQL(LECTURE_CREATE);
     }
 
     @Override

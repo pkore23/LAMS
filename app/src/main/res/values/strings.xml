@@ -1,4 +1,3 @@
-
 <resources>
     <string name="app_name" translatable="false">LAMS</string>
     <string name="action_settings" translatable="false">Settings</string>
@@ -51,4 +50,38 @@
     <string name="title_activity_attendance">AttendanceActivity</string>
 
     <string name="apikey" translatable="true">cnn/Nfq5DvznNA8QosIiPt5O3u8ytZXfD4qL1AOiCH4QZxjvtHKbJw</string>
+    <string name="submit_attd">Submit Attendance</string>
+    <string name="title_activity_activity_time_table">Time Table</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="dept">Department</string>
+    <string name="class_t">Class:</string>
+    <string name="ltype">Type:</string>
+    <string name="sub_hmi">HMI</string>
+    <string name="sub_dwm">DWM</string>
+    <string name="sub_pds">PDS</string>
+    <string name="sub_df">DF</string>
+    <string name="sub_ccl">CCL</string>
+
+    <string-array name="depts">
+        <item>CMPN</item>
+        <item>INFT</item>
+        <item>EXTC</item>
+        <item>ELEX</item>
+        <item>ELEC</item>
+    </string-array>
+    <string-array name="classes">
+        <item>BE1</item>
+        <item>BE2</item>
+    </string-array>
+    <string-array name="lec_type">
+        <item>Lecture</item>
+        <item>Practical</item>
+    </string-array>
+    <string-array name="subjects">
+        <item>CCL</item>
+        <item>DF</item>
+        <item>DWM</item>
+        <item>HMI</item>
+        <item>PDS</item>
+    </string-array>
 </resources>

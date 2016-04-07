@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.beproject.lams.dummy.DummyContent;
+import com.beproject.lams.dummy.StudentListContent;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ import java.util.List;
 public class SimpleItemRecyclerViewAdapter
         extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyContent.DummyItem> mValues;
+    private final List<StudentListContent.StudentListItem> mValues;
     private boolean mTwoPane;
     private FragmentManager mFragmentManager;
 
-    public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items, boolean twoPane, FragmentManager fm) {
+    public SimpleItemRecyclerViewAdapter(List<StudentListContent.StudentListItem> items, boolean twoPane, FragmentManager fm) {
         mValues = items;
         mTwoPane = twoPane;
         mFragmentManager = fm;
@@ -40,7 +40,7 @@ public class SimpleItemRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
+        holder.mIdView.setText(""+mValues.get(position));
         holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,7 @@ public class SimpleItemRecyclerViewAdapter
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyContent.DummyItem mItem;
+        public StudentListContent.StudentListItem mItem;
 
         public ViewHolder(View view) {
             super(view);

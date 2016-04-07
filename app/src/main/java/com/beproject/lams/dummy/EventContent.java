@@ -36,7 +36,8 @@ public class EventContent {
         try {
             if (c.moveToFirst()) {
                 do {
-                    event = c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_HEADER));
+                    String typ=c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_TYPE))=="EXTRA_LEC"?"Extra lecture":"Seminar";
+                    event =typ+": "+c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_TOPIC))+" by "+c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_STAFF_GEN))+" on "+c.getString(c.getColumnIndex(LamsDataContract.Event.COLUMN_EVENT_DATE));
                     eventI = new EventItem(String.valueOf(c.getPosition()), event);
                     ITEMS.add(eventI);
                     ITEM_MAP.put(eventI.id, eventI);

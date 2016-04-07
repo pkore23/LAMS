@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.beproject.lams.service.MyHttpClient;
+import com.beproject.lams.service.UserType;
+
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -45,6 +48,8 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
         b = (Button) rootView.findViewById(R.id.btnlogin);
         cb = (AppCompatCheckBox) rootView.findViewById(R.id.cbPerLog);
         b.setOnClickListener(this);
+        mpb = new ProgressBar(getContext(),null, android.R.style.Widget_ProgressBar_Inverse);
+        mpb.setIndeterminate(true);
         if(sp.getBoolean("perssistlog",false)){
             u.setText(sp.getString("userid",""));
             p.setText(sp.getString("password",""));
@@ -53,8 +58,6 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
             cb.setChecked(true);
             b.callOnClick();
         }
-        mpb = new ProgressBar(getContext(),null, android.R.style.Widget_ProgressBar_Inverse);
-        mpb.setIndeterminate(true);
         return rootView;
     }
 
@@ -97,7 +100,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     }
 
     private boolean attemptLogin() {
-        MyHttpClient Login = new MyHttpClient(this);
+        MyHttpClient Login = new MyHttpClient(getContext());
         Constants.USERID = u.getText().toString();
         Constants.PASSWD = p.getText().toString();
         Login.execute(u.getText().toString(),p.getText().toString());

@@ -1,9 +1,13 @@
-package com.beproject.lams;
+package com.beproject.lams.service;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import com.beproject.lams.LoginActivityFragment;
+import com.beproject.lams.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicHeader;
@@ -37,12 +41,11 @@ import java.util.List;
  */
 public class MyHttpClient extends AsyncTask<String,Void,String> {
 
-    private final LoginActivityFragment mLoginActivityFragment;
-
-    public MyHttpClient(LoginActivityFragment loginActivityFragment) {
-        mLoginActivityFragment = loginActivityFragment;
+    Context mC;
+    public MyHttpClient(Context C) {
+        mC = C;
     }
-    @SuppressWarnings("deprication")
+    @SuppressWarnings("All")
     @Override
     protected String doInBackground(String... params) {
         String userid = params[0];
@@ -51,7 +54,7 @@ public class MyHttpClient extends AsyncTask<String,Void,String> {
         try {
             //request
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost(new URI("http://192.168.1.103/lams/appinterface/app_login.php?q="+mLoginActivityFragment.getString(R.string.apikey)));
+            HttpPost post = new HttpPost(new URI("http://192.168.43.135/lams/appinterface/app_login.php?q="+mC.getString(R.string.apikey)));
             List<NameValuePair> postData = new ArrayList<NameValuePair>(2);
             postData.add(new BasicNameValuePair("userid",userid));
             postData.add(new BasicNameValuePair("password",passwd));
@@ -73,8 +76,6 @@ public class MyHttpClient extends AsyncTask<String,Void,String> {
             e.printStackTrace();
             response = "-1";
         }
-        synchronized (mLoginActivityFragment){
-        mLoginActivityFragment.notify();}
         return response;
     }
 

@@ -1,8 +1,14 @@
 package com.beproject.lams;
 
+import android.accounts.Account;
+import android.content.ContentResolver;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.beproject.lams.sync.LamsAuthenticator;
+import com.beproject.lams.sync.LamsAuthenticatorService;
+import com.beproject.lams.sync.LamsSyncService;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -12,6 +18,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Bundle settingsBundle = new Bundle();
+        Account mAccount = LamsAuthenticator.CreateSyncAccount(this);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        /*
+         * Request the sync for the default account, authority, and
+         * manual sync settings
+         */
+        ContentResolver.requestSync(mAccount, this.getString(R.string.content_authority), settingsBundle);
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

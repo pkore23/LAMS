@@ -132,6 +132,14 @@ public class LamsContentProvider extends ContentProvider {
         switch(match){
             case EVENT: retCursor = db.query(LamsDataContract.Event.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
                 break;
+            case STUDENT: retCursor = db.query(LamsDataContract.Student.TABLE_NAME,projection,selection, selectionArgs,null,null, sortOrder);
+                break;
+            case SUBJECT: retCursor = db.query(LamsDataContract.Subject.TABLE_NAME,projection,selection, selectionArgs,null,null, sortOrder);
+                break;
+            case LECTURE: retCursor = db.query(LamsDataContract.Lecture.TABLE_NAME,projection,selection, selectionArgs,null,null, sortOrder);
+                break;
+            case STAFF: retCursor = db.query(LamsDataContract.Student.TABLE_NAME,projection,selection, selectionArgs,null,null, sortOrder);
+                break;
             default: throw new UnsupportedOperationException("Unknoown URI: "+uri);
         }
         retCursor.setNotificationUri(getContext().getContentResolver(),uri);

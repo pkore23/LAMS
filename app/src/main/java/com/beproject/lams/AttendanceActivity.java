@@ -5,9 +5,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-public class AttendanceActivity extends AppCompatActivity {
+import com.beproject.lams.dummy.AttendanceContent;
+import com.beproject.lams.service.uploadAttendance;
+
+public class AttendanceActivity extends AppCompatActivity implements AttendanceFragment.OnListFragmentInteractionListener {
 
     @SuppressWarnings("All")
     @Override
@@ -20,4 +25,29 @@ public class AttendanceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_attendance,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.action_submit){
+            uploadAttendance ua = new uploadAttendance(this);
+            ua.execute();
+        }
+        return true;
+    }
+
+    @Override
+    public void onListFragmentInteraction(AttendanceContent.AttendanceItem item) {
+        if(Constants.attd.contains(item.id)){
+            Constants.attd.remove(item.id);
+        }
+        else{
+            Constants.attd.add(item.id);
+        }
+    }
 }

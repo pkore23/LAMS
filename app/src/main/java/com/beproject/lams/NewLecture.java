@@ -10,14 +10,12 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.beproject.lams.data.LamsDataContract;
 
@@ -30,11 +28,13 @@ import com.beproject.lams.data.LamsDataContract;
  * Use the {@link NewLecture#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewLecture extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class
+NewLecture extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private View rootView;
     private OnFragmentInteractionListener mListener;
     private SimpleCursorAdapter mAdapter;
     ProgressBar pb;
+    private Button newLec;
 
     public NewLecture() {
         // Required empty public constructor
@@ -63,18 +63,29 @@ public class NewLecture extends Fragment implements LoaderManager.LoaderCallback
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_new_lecture, container, false);
         final Spinner sp = (Spinner) rootView.findViewById(R.id.spn_lec_id);
-        mAdapter = new SimpleCursorAdapter(getContext(),android.R.layout.simple_spinner_item, null, new String[] {LamsDataContract.Lecture.COLUMN_LEC_ID}, new int[] {android.R.id.text1}, 0);
+        /*Cursor c = getContext().getContentResolver().query(LamsDataContract.Subject.CONTENT_URI,
+                new String[] {LamsDataContract.Subject._ID,LamsDataContract.Subject.COLUMN_SUB_ID},
+                null,
+                null,
+                LamsDataContract.Subject.COLUMN_SUB_ID+" asc");
+        mAdapter = new SimpleCursorAdapter(getContext(),android.R.layout.simple_spinner_item, c, new String[] {LamsDataContract.Subject.COLUMN_SUB_ID}, new int[] {android.R.id.text1}, 0);
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         sp.setAdapter(mAdapter);
+        mAdapter.swapCursor(c);
+        mAdapter.notifyDataSetChanged();*/
+        final Spinner classT = (Spinner) rootView.findViewById(R.id.spn_class);
+        final Spinner lecT = (Spinner) rootView.findViewById(R.id.spn_type);
+        final Spinner dept = (Spinner) rootView.findViewById(R.id.spn_dept);
         Button b = (Button) rootView.findViewById(R.id.btn_new_lec);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(getContext(),AttendanceActivity.class);
-                Bundle args = new Bundle();
-                args.putString(Constants.KEYLECID,sp.getSelectedItem().toString());
-                i.putExtras(args);
+                Constants.lec_type = lecT.getSelectedItem().toString();
+                Constants.dept = dept.getSelectedItem().toString();
+                Constants.Class_t = classT.getSelectedItem().toString();
+                Constants.sub = sp.getSelectedItem().toString();
                 startActivity(i);
             }
         });
@@ -109,9 +120,9 @@ public class NewLecture extends Fragment implements LoaderManager.LoaderCallback
         pb = new ProgressBar(getContext(),null,android.R.style.Widget_Material_ProgressBar);
         pb.setIndeterminate(true);
         pb.setVisibility(View.VISIBLE);
-        String column[] = {LamsDataContract.Lecture.COLUMN_LEC_ID};
+        String column[] = {LamsDataContract.Subject._ID,LamsDataContract.Subject.COLUMN_SUB_ID};
         return new CursorLoader(getContext(),
-                LamsDataContract.Lecture.CONTENT_URI,
+                LamsDataContract.Subject.CONTENT_URI,
                 column,
                 null,
                 null,
@@ -120,7 +131,7 @@ public class NewLecture extends Fragment implements LoaderManager.LoaderCallback
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter.swapCursor(data);
+//        mAdapter.swapCursor(data);
         pb.setVisibility(View.GONE);
     }
 

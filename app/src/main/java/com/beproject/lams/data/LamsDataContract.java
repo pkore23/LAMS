@@ -61,6 +61,8 @@ public class LamsDataContract {
         }
     }
 
+
+
     //Class defining content of subject table
     public static final class Subject implements BaseColumns {
 
@@ -77,6 +79,11 @@ public class LamsDataContract {
         public static final String COLUMN_YEAR = "year";
         public static final String COLUMN_THEORY = "theory";
         public static final String COLUMN_PRACTICAL = "practical";
+        public static final String COLUMN_OTHER_STAFF1 = "other_staff_1";
+        public static final String COLUMN_OTHER_STAFF2 = "other_staff_2";
+        public static final String COLUMN_OTHER_STAFF3 = "other_staff_3";
+        public static final String COLUMN_OTHER_STAFF4 = "other_staff_4";
+        public static final String COLUMN_SEM = "sem";
 
         //uri builder functions
         public static Uri buildId(String id) {
@@ -144,7 +151,11 @@ public class LamsDataContract {
         public static final String TABLE_NAME = "event"; //event table name
 
         //columns
-        public static final String COLUMN_EVENT_HEADER = "event_header";
+        public static final String COLUMN_EVENT_ID = "e_id";
+        public static final String COLUMN_EVENT_TYPE = "type";
+        public static final String COLUMN_EVENT_TOPIC = "topic";
+        public static final String COLUMN_EVENT_STAFF_GEN = "staff_gen";
+        public static final String COLUMN_EVENT_DATE = "date";
 
         public static Uri buildEvent(String evh){
             return CONTENT_URI.buildUpon().appendPath(evh).build();
@@ -165,10 +176,13 @@ public class LamsDataContract {
         //Columns
         public static final String COLUMN_LEC_ID = "lec_id";
         public static final String COLUMN_SUBJECT = "subject";
-        public static final String COLUMN_DATE = "date";
+        public static final String COLUMN_LOCATION = "location";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_DAY = "day";
+        public static final String COLUMN_DEPT = "dept";
+        public static final String COLUMN_class = "class";
         public static final String COLUMN_TIME = "time";
         public static final String COLUMN_STAFF = "staff";
-        public static final String COLUMN_ATTD = "attd_table";
         
         public static Uri buildLecture(String lecid){
             return CONTENT_URI.buildUpon().appendPath(lecid).build();
@@ -182,7 +196,7 @@ public class LamsDataContract {
             return CONTENT_URI.buildUpon().appendPath(subid).build();
         }
         
-        public static Uri buildDate(String dt){
+        public static Uri buildDay(String dt){
             return CONTENT_URI.buildUpon().appendPath(dt).build();
         }
     }

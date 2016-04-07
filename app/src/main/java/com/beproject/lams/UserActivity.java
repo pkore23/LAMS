@@ -2,6 +2,7 @@ package com.beproject.lams;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -22,9 +23,12 @@ import android.widget.Toast;
 
 import com.beproject.lams.data.LamsDataContract;
 import com.beproject.lams.dummy.EventContent;
+import com.beproject.lams.service.UserType;
+
+import java.util.concurrent.ExecutionException;
 
 public class UserActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener, NewLecture.OnFragmentInteractionListener {
 
     Menu navMenu;
     FragmentManager fragmentManager;
@@ -66,7 +70,17 @@ public class UserActivity extends AppCompatActivity
         MenuItem m3 = navMenu.getItem(3);
         MenuItem m4 = navMenu.getItem(4);
         SharedPreferences prefs= getSharedPreferences("com.beproject.lams", Context.MODE_PRIVATE);
-        int UserType = Constants.USERTYPE;
+        Uri recv;
+        UserType ut = new UserType(this);
+        ut.execute();
+        int UserType = 0;
+        try {
+            UserType = ut.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         switch(UserType){
             default:
             case -1: m1.setTitle("Error").setIcon(R.drawable.ic_warning);
@@ -74,18 +88,30 @@ public class UserActivity extends AppCompatActivity
                 m3.setTitle("Error").setIcon(R.drawable.ic_warning);
                 m4.setTitle("Error").setIcon(R.drawable.ic_warning);
                 navMenu.removeGroup(R.id.adminRights);
+                recv = LamsDataContract.Student.CONTENT_URI;
                 break;
             case 1: navMenu.removeGroup(R.id.adminRights);
             case 0: m1.setTitle(R.string.new_lec).setIcon(R.drawable.ic_new_lec);
                 m2.setTitle(R.string.attd_rep_std).setIcon(R.drawable.ic_action_name2);
                 m3.setTitle(R.string.attd_rep_sub).setIcon(R.drawable.ic_action_name2);
                 m4.setTitle(R.string.mentor_stud).setIcon(R.drawable.ic_action_name3);
+                recv = LamsDataContract.Staff.CONTENT_URI;
                 break;
             case 2: navMenu.removeGroup(R.id.adminRights);
                 m1.setTitle("My Subjects").setIcon(R.drawable.ic_action_name2);
+                recv = LamsDataContract.Student.CONTENT_URI;
                 break;
         }
-
+        try{
+        String projection[]={"enroll_id"};
+        String args[]={Constants.USERID};
+        Cursor c = getContentResolver().query(recv, projection, "username=?",args,null);
+        if(c.moveToFirst()){
+            Constants.ENROLLID = c.getString(0);
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -94,18 +120,22 @@ public class UserActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.exit)
-                    .setMessage(R.string.exit_msg)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("No",null)
-                    .show();
+            closeApp();
         }
+    }
+
+    private void closeApp() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.exit)
+                .setMessage(R.string.exit_msg)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No",null)
+                .show();
     }
 
     @Override
@@ -124,6 +154,10 @@ public class UserActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCE,Context.MODE_PRIVATE);
+            sp.edit().putBoolean("perssistlog",false)
+            .apply();
+            closeApp();
             return true;
         }
 
@@ -145,7 +179,9 @@ public class UserActivity extends AppCompatActivity
             } else if (id.equals(getString(R.string.new_lec))) {
                 content = NewLecture.newInstance();
             } else if (id.equals(getString(R.string.attd_rep_std))) {
-                content = new ErrorFragment();
+                Intent i = new Intent(this,StudentListActivity.class);
+                startActivity(i);
+                return true;
             } else if (id.equals(getString(R.string.attd_rep_sub))) {
                 content = new ErrorFragment();
             } else if (id.equals(getString(R.string.mentor_stud))) {
@@ -177,4 +213,6 @@ public class UserActivity extends AppCompatActivity
     public void onListFragmentInteraction(EventContent.EventItem item) {
 
     }
+
+
 }

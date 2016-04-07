@@ -47,6 +47,7 @@
         <activity
             android:name=".AttendanceActivity"
             android:label="@string/title_activity_attendance"
+            android:noHistory="true"
             android:parentActivityName=".UserActivity"
             android:theme="@style/AppTheme">
             <meta-data
@@ -87,13 +88,25 @@
         <service
             android:name=".sync.LamsAuthenticatorService"
             android:enabled="true"
-            android:exported="true"><intent-filter>
-            <action android:name="android.accounts.AccountAuthenticator" />
-        </intent-filter>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
+
+        <activity
+            android:name=".ActivityTimeTable"
+            android:label="@string/title_activity_activity_time_table"
+            android:parentActivityName=".UserActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beproject.lams.UserActivity" />
+        </activity>
     </application>
 
 </manifest>
