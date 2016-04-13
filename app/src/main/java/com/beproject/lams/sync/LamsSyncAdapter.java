@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.beproject.lams.BuildConfig;
+import com.beproject.lams.Constants;
 import com.beproject.lams.UserActivity;
 import com.beproject.lams.R;
 import com.beproject.lams.data.LamsDataContract;
@@ -83,9 +84,9 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
             // Possible parameters are avaiable at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
             final String APP_INTERFACE_STUDENT_URL =
-                    "http://192.168.43.135/lams/appinterface/get_students.php";
+                    "http://"+ Constants.ip+"/lams/appinterface/get_students.php";
             final String APP_INTERFACE_STAFF_URL =
-                    "http://192.168.43.135/lams/appinterface/get_staff.php";
+                    "http://"+Constants.ip+"/lams/appinterface/get_staff.php";
 
             Uri uri = Uri.parse(APP_INTERFACE_STUDENT_URL).buildUpon().appendQueryParameter("q",getContext().getString(R.string.apikey)).build();
             URL url = new URL(uri.toString());
@@ -206,7 +207,7 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
                 getContext().getContentResolver().delete(LamsDataContract.Event.CONTENT_URI, "date<=?", new String[]{"date(now)"});
             }
-            url = new URL("http://192.168.43.135/lams/appinterface/get_events.php?q="+getContext().getString(R.string.apikey));
+            url = new URL("http://"+Constants.ip+"/lams/appinterface/get_events.php?q="+getContext().getString(R.string.apikey));
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -261,7 +262,7 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
             }
 
-            url = new URL("http://192.168.43.135/lams/appinterface/get_lecs.php?q="+getContext().getString(R.string.apikey));
+            url = new URL("http://"+Constants.ip+"/lams/appinterface/get_lecs.php?q="+getContext().getString(R.string.apikey));
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -319,7 +320,7 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                     e.printStackTrace();
                 }
             }
-            url = new URL("http://192.168.43.135/lams/appinterface/get_subject.php?q="+getContext().getString(R.string.apikey));
+            url = new URL("http://"+Constants.ip+"/lams/appinterface/get_subject.php?q="+getContext().getString(R.string.apikey));
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();

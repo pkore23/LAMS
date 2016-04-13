@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * Created by Pradnesh Kore on 03-04-2016.
  */
 public class UserType extends AsyncTask<Void, Void, Integer> {
-    private static final String APP_INTERFACE_TYPE_URL = "http://192.168.43.135/lams/appinterface/app_usertype.php";
+    private static final String APP_INTERFACE_TYPE_URL = "http://"+Constants.ip+"/lams/appinterface/app_usertype.php";
     Context mContext;
     public UserType(Context c){
         mContext = c;

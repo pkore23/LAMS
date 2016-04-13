@@ -66,6 +66,18 @@
         android:layout_marginTop="14dp"
         android:textColor="@color/colorAccent"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ip"
+        android:hint="@string/hntip"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
+        android:inputType="textNoSuggestions"
+        android:layout_below="@+id/loginvew"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="101dp" />
+
     <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

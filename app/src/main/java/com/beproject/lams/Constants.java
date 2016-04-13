@@ -27,4 +27,6 @@ public final class Constants {
     public static String dept;
     public static String sub;
     public static Map<String, StudentListContent.StudentListItem> ITMESSTUDENTMAP;
+    public static final int LOADERCONTACT=3;
+    public static String ip = "192.168.1.103";
 }

@@ -7,6 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.beproject.lams.service.SetEvent;
 
 
 /**
@@ -16,7 +22,6 @@ import android.view.ViewGroup;
  * to handle interaction events.
  * Use the {@link NewEventFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class NewEventFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +34,10 @@ public class NewEventFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public NewEventFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -47,9 +56,6 @@ public class NewEventFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public NewEventFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +70,24 @@ public class NewEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_event, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_event, container, false);
+        final EditText ed = (EditText) rootView.findViewById(R.id.staff_gen);
+        final EditText ed1 = (EditText) rootView.findViewById(R.id.topic);
+        final EditText ed2 = (EditText) rootView.findViewById(R.id.date);
+        final Spinner sp = (Spinner) rootView.findViewById(R.id.spn_eve_type);
+        Button b  = (Button) rootView.findViewById(R.id.saveEvent);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=ed.getText().toString();
+                String topic = ed1.getText().toString();
+                String date = ed2.getText().toString();
+                String type = sp.getSelectedItem().toString();
+                SetEvent se = new SetEvent();
+                se.execute(type,topic,name,date);
+            }
+        });
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -96,7 +119,7 @@ public class NewEventFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

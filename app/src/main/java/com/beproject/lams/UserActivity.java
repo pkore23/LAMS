@@ -28,7 +28,7 @@ import com.beproject.lams.service.UserType;
 import java.util.concurrent.ExecutionException;
 
 public class UserActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener, NewLecture.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener, NewEventFragment.OnFragmentInteractionListener {
 
     Menu navMenu;
     FragmentManager fragmentManager;
@@ -183,7 +183,7 @@ public class UserActivity extends AppCompatActivity
                 startActivity(i);
                 return true;
             } else if (id.equals(getString(R.string.attd_rep_sub))) {
-                content = new ErrorFragment();
+                content = new NewEventFragment();
             } else if (id.equals(getString(R.string.mentor_stud))) {
                 content = new ErrorFragment();
             } else if (id.equals(getString(R.string.acc_sett))) {

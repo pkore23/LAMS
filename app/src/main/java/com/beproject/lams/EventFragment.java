@@ -119,11 +119,13 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
         //pb.setForegroundGravity(View.TEXT_ALIGNMENT_CENTER);
         pb.setVisibility(View.VISIBLE);
         String[] mColumns = {LamsDataContract.Event.COLUMN_EVENT_TYPE, LamsDataContract.Event.COLUMN_EVENT_TOPIC, LamsDataContract.Event.COLUMN_EVENT_STAFF_GEN, LamsDataContract.Event.COLUMN_EVENT_DATE};
+        String selection = LamsDataContract.Event.COLUMN_EVENT_DATE+">?";
+        String selectionArgs [] = new String[]{"date(now)"};
         return new CursorLoader(getActivity(),
                 LamsDataContract.Event.CONTENT_URI,
                 mColumns,
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null);
     }
 

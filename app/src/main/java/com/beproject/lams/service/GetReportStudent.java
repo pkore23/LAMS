@@ -8,11 +8,13 @@ import java.util.jar.Attributes;
 
 import android.os.AsyncTask;
 
+import com.beproject.lams.Constants;
 import com.beproject.lams.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -29,11 +31,12 @@ public class GetReportStudent extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            URI uri = new URI("http://192.168.43.135/lams/appinterface/app_report_stud.php?q="+mContext.getString(R.string.apikey));
+            URI uri = new URI("http://"+ Constants.ip+"/lams/appinterface/app_report_stud.php?q="+mContext.getString(R.string.apikey));
             HttpClient client = new DefaultHttpClient();
             HttpPost post= new HttpPost(uri);
             ArrayList<NameValuePair> postData = new ArrayList<NameValuePair>();
             postData.add(new BasicNameValuePair("enroll",params[0]));
+            post.setEntity(new UrlEncodedFormEntity(postData));
             HttpResponse resp = client.execute(post);
             return EntityUtils.toString(resp.getEntity());
         } catch (Exception e) {

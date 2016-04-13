@@ -1,14 +1,25 @@
 package com.beproject.lams;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.beproject.lams.data.LamsDataContract;
 import com.beproject.lams.dummy.StudentListContent;
 import com.beproject.lams.service.GetReportStudent;
 
@@ -20,7 +31,7 @@ import java.util.concurrent.ExecutionException;
  * in two-pane mode (on tablets) or a {@link StudentDetailActivity}
  * on handsets.
  */
-public class StudentDetailFragment extends Fragment {
+public class StudentDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -34,9 +45,16 @@ public class StudentDetailFragment extends Fragment {
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
+     * fragment (e.g. upon screen orientation changes)
      */
+    Cursor c;
     public StudentDetailFragment() {
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getLoaderManager().initLoader(Constants.LOADERCONTACT,null, this);
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -68,6 +86,7 @@ public class StudentDetailFragment extends Fragment {
             gr.execute(mItem.id);
             try {
                 String data=gr.get();
+                Log.e("report text",data);
                 String subs[]=data.split("@@");
                 String hmi[]=subs[0].split("::");
                 String pds[]=subs[1].split("::");
@@ -125,8 +144,57 @@ public class StudentDetailFragment extends Fragment {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+            catch(ArrayIndexOutOfBoundsException e){
+                e.printStackTrace();
+                Toast.makeText(getContext(),"Unable to load data",Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+//                getActivity().onBackPressed();
+            }
+            String[] cols = new String[]{LamsDataContract.Student.COLUMN_CONTACT, LamsDataContract.Student.COLUMN_PCONTACT};
+            String selection = LamsDataContract.Student.COLUMN_ENROLL_ID+"=?";
+            String Sargs[]=new String[]{mItem.id};
+            c= getContext().getContentResolver().query(LamsDataContract.Student.CONTENT_URI,
+                    cols,selection,Sargs,null);
+            Button b1 = (Button) rootView.findViewById(R.id.call_student);
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String contactNo="tel:"+c.getString(0);
+                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse(contactNo));
+                }
+            });
+            Button b2 = (Button) rootView.findViewById(R.id.call_parent);
+            b2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String contactNo="tel:"+c.getString(1);
+                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse(contactNo));
+                }
+            });
         }
 
         return rootView;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] cols = new String[]{LamsDataContract.Student.COLUMN_CONTACT, LamsDataContract.Student.COLUMN_PCONTACT};
+        String selection = LamsDataContract.Student.COLUMN_ENROLL_ID+"=?";
+        String Sargs[]=new String[]{mItem.id};
+        return new CursorLoader(getActivity(),
+                LamsDataContract.Student.CONTENT_URI,
+                cols,
+                selection,
+                Sargs,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        c=data;
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
     }
 }

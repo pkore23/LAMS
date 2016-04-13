@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 
 import com.beproject.lams.AttendanceFragment.OnListFragmentInteractionListener;
@@ -63,13 +64,13 @@ public class MyAttendanceRecyclerViewAdapter extends RecyclerView.Adapter<MyAtte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final CheckedTextView mIdView;
+        public final CheckBox mIdView;
         public AttendanceItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (CheckedTextView) view.findViewById(R.id.id);
+            mIdView = (CheckBox) view.findViewById(R.id.chk_id);
         }
 
         @Override

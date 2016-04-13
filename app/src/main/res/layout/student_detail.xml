@@ -388,7 +388,32 @@
                     android:gravity="center_vertical|center_horizontal" />
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/student"
+                android:id="@+id/call_student"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_call"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/parent"
+                android:id="@+id/call_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_call"
+                android:gravity="center_vertical|center_horizontal" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
 </ScrollView>

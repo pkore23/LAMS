@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <CheckedTextView
+    <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
         android:layout_margin="16dp"
-        android:id="@+id/id"/>
+        android:id="@+id/chk_id"/>
 </LinearLayout>

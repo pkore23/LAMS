@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.beproject.lams.Constants;
 import com.beproject.lams.LoginActivityFragment;
 import com.beproject.lams.R;
 
@@ -54,7 +55,7 @@ public class MyHttpClient extends AsyncTask<String,Void,String> {
         try {
             //request
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost(new URI("http://192.168.43.135/lams/appinterface/app_login.php?q="+mC.getString(R.string.apikey)));
+            HttpPost post = new HttpPost(new URI("http://"+ Constants.ip+"/lams/appinterface/app_login.php?q="+mC.getString(R.string.apikey)));
             List<NameValuePair> postData = new ArrayList<NameValuePair>(2);
             postData.add(new BasicNameValuePair("userid",userid));
             postData.add(new BasicNameValuePair("password",passwd));

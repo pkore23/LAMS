@@ -12,6 +12,8 @@ import android.view.View;
 import com.beproject.lams.dummy.AttendanceContent;
 import com.beproject.lams.service.uploadAttendance;
 
+import java.util.concurrent.ExecutionException;
+
 public class AttendanceActivity extends AppCompatActivity implements AttendanceFragment.OnListFragmentInteractionListener {
 
     @SuppressWarnings("All")
@@ -37,6 +39,14 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceF
         if(id==R.id.action_submit){
             uploadAttendance ua = new uploadAttendance(this);
             ua.execute();
+            try {
+                ua.get();
+                this.onBackPressed();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }

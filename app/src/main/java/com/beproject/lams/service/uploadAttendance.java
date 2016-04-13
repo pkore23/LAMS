@@ -33,7 +33,7 @@ public class uploadAttendance extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         ArrayList<String> at = Constants.attd;
         String response;
-        final String ATTENDANCE_URL = "http://192.168.43.135/lams/appinterface/write_attendance.php?q="+Constants.apikey;
+        final String ATTENDANCE_URL = "http://"+Constants.ip+"/lams/appinterface/write_attendance.php?q="+Constants.apikey;
         try {
             //request
             HttpClient client = new DefaultHttpClient();

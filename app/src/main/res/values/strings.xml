@@ -9,7 +9,7 @@
     <string name="title_activity_options" translatable="false">Welcome, USER</string>
     <string name="new_lec" translatable="false">New Lecture</string>
     <string name="attd_rep_std" translatable="false">Attendance Report: Student</string>
-    <string name="attd_rep_sub" translatable="false">Attendance Report: Subject</string>
+    <string name="attd_rep_sub" translatable="false">New Event</string>
     <string name="mentor_stud" translatable="false">Mentoring students</string>
     <string name="acc_sett" translatable="false">Account Setting</string>
     <string name="new_std" translatable="false">New user:\nStudent</string>
@@ -61,6 +61,16 @@
     <string name="sub_pds">PDS</string>
     <string name="sub_df">DF</string>
     <string name="sub_ccl">CCL</string>
+    <string name="student">Student</string>
+    <string name="parent">Parent</string>
+    <string name="event_type">Event type:</string>
+    <string name="event_topic">Topic:</string>
+    <string name="hnttopic">Lecture Topic</string>
+    <string name="date">Date:</string>
+    <string name="lecturer">Lecturer:</string>
+    <string name="hntip">IP Address of server</string>
+    <string name="save_event">Save</string>
+    <string name="hntdate">YYYY-MM-DD</string>
 
     <string-array name="depts">
         <item>CMPN</item>
@@ -83,5 +93,9 @@
         <item>DWM</item>
         <item>HMI</item>
         <item>PDS</item>
+    </string-array>
+    <string-array name="events">
+        <item>Extra Lecture</item>
+        <item>Seminar</item>
     </string-array>
 </resources>
