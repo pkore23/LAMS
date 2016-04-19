@@ -1,5 +1,6 @@
 package com.beproject.lams;
 
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,7 @@ public class MyAttendanceRecyclerViewAdapter extends RecyclerView.Adapter<MyAtte
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).content);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mIdView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -64,13 +65,13 @@ public class MyAttendanceRecyclerViewAdapter extends RecyclerView.Adapter<MyAtte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final CheckBox mIdView;
+        public final AppCompatCheckBox mIdView;
         public AttendanceItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (CheckBox) view.findViewById(R.id.chk_id);
+            mIdView = (AppCompatCheckBox) view.findViewById(R.id.chk_id);
         }
 
         @Override

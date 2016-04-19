@@ -1,6 +1,7 @@
 package com.beproject.lams;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -159,16 +160,31 @@ public class StudentDetailFragment extends Fragment implements LoaderManager.Loa
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String contactNo="tel:"+c.getString(0);
-                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse(contactNo));
+                    c.moveToFirst();
+                    String contactNo="tel:+91"+c.getString(0);
+                    Intent i = new Intent(Intent.ACTION_CALL, Uri.parse(contactNo));
+                    try{
+                        startActivity(i);
+                    }catch (ActivityNotFoundException e)
+                    {
+                        Toast.makeText(getContext(),"No activity match found to place call!",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             Button b2 = (Button) rootView.findViewById(R.id.call_parent);
             b2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String contactNo="tel:"+c.getString(1);
-                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse(contactNo));
+                    c.moveToFirst();
+                    String contactNo="tel:+91"+c.getString(1);
+                    Intent i = new Intent(Intent.ACTION_CALL
+                            , Uri.parse(contactNo));
+                    try{
+                        startActivity(i);
+                    }catch (ActivityNotFoundException e)
+                    {
+                        Toast.makeText(getContext(),"No activity match found to place call!",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

@@ -10,6 +10,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ NewLecture extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
                 Constants.dept = dept.getSelectedItem().toString();
                 Constants.Class_t = classT.getSelectedItem().toString();
                 Constants.sub = sp.getSelectedItem().toString();
+                Log.e("SubjectCheck",Constants.sub);
                 startActivity(i);
             }
         });
@@ -137,7 +139,11 @@ NewLecture extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-    mAdapter.swapCursor(null);
+    try
+    {mAdapter.swapCursor(null);}
+    catch (NullPointerException e){
+        e.printStackTrace();
+    }
     }
 
     /**

@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivityFragment extends Fragment implements View.OnClickListener {
     View rootView;
     Button b;
-    EditText p,u;
+    EditText p,u,ip;
     AppCompatCheckBox cb;
     Intent i;
     String mResponse;
@@ -45,6 +45,8 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
         SharedPreferences sp = getContext().getSharedPreferences(Constants.PREFERENCE,Context.MODE_PRIVATE);
         p = (EditText) rootView.findViewById(R.id.passd);
         u = (EditText) rootView.findViewById(R.id.usrid);
+        ip = (EditText) rootView.findViewById(R.id.ip);
+        ip.setText(Constants.ip);
         b = (Button) rootView.findViewById(R.id.btnlogin);
         cb = (AppCompatCheckBox) rootView.findViewById(R.id.cbPerLog);
         b.setOnClickListener(this);
@@ -65,6 +67,7 @@ public class LoginActivityFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         mpb.setVisibility(View.VISIBLE);
         i = new Intent(getContext(),UserActivity.class);
+        Constants.ip = ip.getText().toString();
         if(attemptLogin()) {
             mpb.setVisibility(View.GONE);
             startActivity(i);

@@ -21,7 +21,7 @@ public final class Constants {
     public static final String PREFERENCE = "com.beproject.lams";
     public static int USERTYPE = -1;
     public static ArrayList<String> attd= new ArrayList<String>();
-    public static String apikey;
+    public static String apikey="cnn/Nfq5DvznNA8QosIiPt5O3u8ytZXfD4qL1AOiCH4QZxjvtHKbJw";
     public static String lec_type;
     public static String Class_t;
     public static String dept;
@@ -29,4 +29,5 @@ public final class Constants {
     public static Map<String, StudentListContent.StudentListItem> ITMESSTUDENTMAP;
     public static final int LOADERCONTACT=3;
     public static String ip = "192.168.1.103";
+    public static String students;
 }

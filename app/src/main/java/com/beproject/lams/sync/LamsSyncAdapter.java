@@ -127,7 +127,6 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                     for (String row : rows) {
                         if (row != "\t") {
                             String columns[] = row.split("#");
-                            Log.e("String col", row);
                             cv[i] = new ContentValues();
                             cv[i].put(LamsDataContract.Student.COLUMN_ENROLL_ID, columns[0]);
                             cv[i].put(LamsDataContract.Student.COLUMN_NAME, columns[1]);
@@ -297,7 +296,6 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                 try {
                     for (String row : rows) {
                         if (row != "\t") {
-                            Log.e("RowDetailLecture",row);
                             String columns[] = row.split("#");
                             cv[i] = new ContentValues();
                             cv[i].put(LamsDataContract.Lecture.COLUMN_LEC_ID, columns[0]);
@@ -355,7 +353,6 @@ LamsSyncAdapter extends AbstractThreadedSyncAdapter {
                 try {
                     for (String row : rows) {
                         if (row != "\t") {
-                            Log.e("RowDetail",row);
                             String columns[] = row.split("#");
                             cv[i] = new ContentValues();
                             cv[i].put(LamsDataContract.Subject.COLUMN_SUB_ID, columns[0]);

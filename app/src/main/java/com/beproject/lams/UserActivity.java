@@ -28,7 +28,7 @@ import com.beproject.lams.service.UserType;
 import java.util.concurrent.ExecutionException;
 
 public class UserActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener, NewEventFragment.OnFragmentInteractionListener {
+        implements NewLecture.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, EventFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener, NewEventFragment.OnFragmentInteractionListener {
 
     Menu navMenu;
     FragmentManager fragmentManager;
